@@ -1,0 +1,12 @@
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\bin\Debug\net7.0\DTO.deps.json
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\bin\Debug\net7.0\DTO.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\bin\Debug\net7.0\DTO.pdb
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.csproj.AssemblyReference.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.AssemblyInfoInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.AssemblyInfo.cs
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.csproj.CoreCompileInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\refint\DTO.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.pdb
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\ref\DTO.dll

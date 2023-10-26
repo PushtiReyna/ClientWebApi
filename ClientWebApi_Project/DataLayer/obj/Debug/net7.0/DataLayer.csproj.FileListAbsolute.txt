@@ -1,0 +1,14 @@
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\bin\Debug\net7.0\DataLayer.deps.json
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\bin\Debug\net7.0\DataLayer.runtimeconfig.json
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\bin\Debug\net7.0\DataLayer.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\bin\Debug\net7.0\DataLayer.pdb
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.csproj.AssemblyReference.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.AssemblyInfoInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.AssemblyInfo.cs
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.csproj.CoreCompileInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\refint\DataLayer.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.pdb
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\DataLayer.genruntimeconfig.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DataLayer\obj\Debug\net7.0\ref\DataLayer.dll

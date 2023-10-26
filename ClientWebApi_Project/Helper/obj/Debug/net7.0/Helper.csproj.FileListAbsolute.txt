@@ -1,0 +1,12 @@
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\bin\Debug\net7.0\Helper.deps.json
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\bin\Debug\net7.0\Helper.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\bin\Debug\net7.0\Helper.pdb
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\Helper.csproj.AssemblyReference.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\Helper.GeneratedMSBuildEditorConfig.editorconfig
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\Helper.AssemblyInfoInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\Helper.AssemblyInfo.cs
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\Helper.csproj.CoreCompileInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\Helper.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\refint\Helper.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\Helper.pdb
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\Helper\obj\Debug\net7.0\ref\Helper.dll

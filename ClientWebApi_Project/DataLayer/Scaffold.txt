@@ -1,0 +1,1 @@
+Scaffold-DbContext "Server=ARCHE-ITD440\SQLEXPRESS;Database=ClientApiDB;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities
