@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Entities;
@@ -17,10 +18,9 @@ public partial class ClientMst
 
     public string Image { get; set; } = null!;
 
-    //[NotMapped]
-    //public IFormFile Picture { get; set; }  
     public string Username { get; set; } = null!;
 
+    [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
     public bool IsActive { get; set; }

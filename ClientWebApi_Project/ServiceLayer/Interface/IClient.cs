@@ -1,5 +1,6 @@
 ﻿using DTO.Client;
 using Helper.CommonModel;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace ServiceLayer.Interface
 {
     public interface IClient
     {
+        public CommonResponse GetClient();
         public CommonResponse AddClient(AddClientReqDTO addClientReqDTO);
+
+        public CommonResponse UpdateClient(UpdateClientReqDTO updateClientReqDTO);
+
+        public CommonResponse DeleteClient(DeleteClientReqDTO deleteClientReqDTO);
     }
 }

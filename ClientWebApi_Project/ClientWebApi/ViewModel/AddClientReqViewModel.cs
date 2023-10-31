@@ -5,7 +5,7 @@ namespace ClientWebApi.ViewModel
 {
     public class AddClientReqViewModel
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         public string Fullname { get; set; } = null!;
 
@@ -13,10 +13,7 @@ namespace ClientWebApi.ViewModel
 
         public DateTime Dob { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public string Image { get; set; } = null!;
-
-        public IFormFile? pic { get; set; }
+        public IFormFile Image { get; set; }
 
         public string Username { get; set; } = null!;
 

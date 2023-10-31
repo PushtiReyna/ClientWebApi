@@ -13,21 +13,33 @@ namespace ClientWebApi.Controllers
     public class ClientController : ControllerBase
     {
         public readonly IClient _client;
-      //  public readonly IWebHostEnvironment _webHostEnvironment;
-
-        public ClientController(IClient client /*, IWebHostEnvironment webHostEnvironment*/)
+       
+        public ClientController(IClient client)
         {
             _client = client;
-          //  _webHostEnvironment = webHostEnvironment;
         }
 
-        [HttpPost]
-        public CommonResponse AddClient(AddClientReqViewModel addClientReqViewModel) 
-        { 
+
+        [HttpGet]
+        public CommonResponse GetClient()
+        {
             CommonResponse response = new CommonResponse();
             try
             {
-                //string filename = uploadfile(addClientReqViewModel);
+                response = _client.GetClient();
+                List<GetClientResDTO> lstGetClientResDTO = response.Data;
+                response.Data = lstGetClientResDTO.Adapt<List<GetClientResViewModel>>();
+            }
+            catch { throw; }
+            return response;
+        }
+
+        [HttpPost]
+        public CommonResponse AddClient([FromForm] AddClientReqViewModel addClientReqViewModel)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
                 response = _client.AddClient(addClientReqViewModel.Adapt<AddClientReqDTO>());
                 AddClientResDTO addClientResDTO = response.Data;
                 response.Data = addClientResDTO.Adapt<AddClientResViewModel>();
@@ -36,16 +48,32 @@ namespace ClientWebApi.Controllers
             return response;
         }
 
-        //[NonAction]
-        //public string uploadfile(AddClientReqViewModel addClientReqViewModel)
-        //{
-        //    string path = Path.Combine("D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\Image\\");
-        //    using (Stream stream = new FileStream(path, FileMode.Create))
-        //    {
-        //        addClientReqViewModel.pic.CopyTo(stream);
+        [HttpPut]
+        public CommonResponse UpdateClient([FromForm] UpdateClientReqViewModel updateClientReqViewModel)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                response = _client.UpdateClient(updateClientReqViewModel.Adapt<UpdateClientReqDTO>());
+                UpdateClientResDTO updateClientResDTO = response.Data;
+                response.Data = updateClientResDTO.Adapt<UpdateClientResViewModel>();
+            }
+            catch { throw; }
+            return response;
+        }
 
-        //    }
-        //    return path;
-        //}
+        [HttpDelete]
+        public CommonResponse DeleteClient([FromForm] DeleteClientReqViewModel deleteClientReqViewModel)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                response = _client.DeleteClient(deleteClientReqViewModel.Adapt<DeleteClientReqDTO>());
+                DeleteClientResDTO deleteClientResDTO = response.Data;
+                response.Data = deleteClientResDTO.Adapt<DeleteClientResViewModel>();
+            }
+            catch { throw; }
+            return response;
+        }
     }
 }

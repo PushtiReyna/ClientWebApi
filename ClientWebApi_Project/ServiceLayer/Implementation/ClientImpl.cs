@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using DTO.Client;
 using Helper.CommonModel;
+using Microsoft.AspNetCore.Http;
 using ServiceLayer.Interface;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,22 @@ namespace ServiceLayer.Implementation
         {
             _clientBLL = clientBLL;
         }
+        public CommonResponse GetClient()
+        {
+            return _clientBLL.GetClient();
+        }
         public CommonResponse AddClient(AddClientReqDTO addClientReqDTO)
         {
             return _clientBLL.AddClient(addClientReqDTO);
+        }
+
+        public CommonResponse UpdateClient(UpdateClientReqDTO updateClientReqDTO)
+        {
+            return _clientBLL.UpdateClient(updateClientReqDTO);
+        }
+        public CommonResponse DeleteClient(DeleteClientReqDTO deleteClientReqDTO)
+        {
+            return _clientBLL.DeleteClient(deleteClientReqDTO);
         }
     }
 }
