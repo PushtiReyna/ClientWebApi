@@ -35,5 +35,9 @@ namespace ServiceLayer.Implementation
         {
             return _clientBLL.DeleteClient(deleteClientReqDTO);
         }
+        public CommonResponse Login(LoginReqDTO loginReqDTO)
+        {
+            return _clientBLL.Login(loginReqDTO);
+        }
     }
 }

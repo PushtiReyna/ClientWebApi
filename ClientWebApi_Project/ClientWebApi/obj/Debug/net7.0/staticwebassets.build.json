@@ -1,11 +1,105 @@
 {
   "Version": 1,
-  "Hash": "e8x+3le5rbKqy6AqIFdXWKdLvmsnT+QyEwK6UDUHJy0=",
+  "Hash": "p6W29ShmE6CxIkn2HTNoO20UrOAuVuNnzbmKJ0ESSeg=",
   "Source": "ClientWebApi",
   "BasePath": "_content/ClientWebApi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "ClientWebApi\\wwwroot",
+      "Source": "ClientWebApi",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (1).png",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/Screenshot (1).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Screenshot (1).png"
+    },
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (2).png",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/Screenshot (2).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Screenshot (2).png"
+    },
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (6).png",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/Screenshot (6).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Screenshot (6).png"
+    },
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (7).png",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/Screenshot (7).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Screenshot (7).png"
+    },
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (9).png",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/Screenshot (9).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Screenshot (9).png"
+    }
+  ]
 }

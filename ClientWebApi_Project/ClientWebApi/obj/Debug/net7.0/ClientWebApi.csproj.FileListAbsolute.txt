@@ -1,5 +1,6 @@
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\bin\Debug\net7.0\appsettings.Development.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\bin\Debug\net7.0\appsettings.json
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\bin\Debug\net7.0\ClientWebApi.staticwebassets.runtime.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\bin\Debug\net7.0\ClientWebApi.exe
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\bin\Debug\net7.0\ClientWebApi.deps.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\bin\Debug\net7.0\ClientWebApi.runtimeconfig.json

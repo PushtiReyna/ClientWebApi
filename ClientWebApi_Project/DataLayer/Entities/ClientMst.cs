@@ -20,18 +20,17 @@ public partial class ClientMst
 
     public string Username { get; set; } = null!;
 
-    [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
     public bool IsActive { get; set; }
 
     public bool IsDelete { get; set; }
 
-    public bool CreatedBy { get; set; }
+    public int CreatedBy { get; set; }
 
     public DateTime? CreatedOn { get; set; }
 
-    public bool UpdateBy { get; set; }
+    public int UpdateBy { get; set; }
 
     public DateTime? UpdatedOn { get; set; }
 }

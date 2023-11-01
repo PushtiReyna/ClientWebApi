@@ -35,6 +35,7 @@ namespace ClientWebApi.Controllers
         }
 
         [HttpPost]
+        [Route("AddClient")]
         public CommonResponse AddClient([FromForm] AddClientReqViewModel addClientReqViewModel)
         {
             CommonResponse response = new CommonResponse();
@@ -71,6 +72,21 @@ namespace ClientWebApi.Controllers
                 response = _client.DeleteClient(deleteClientReqViewModel.Adapt<DeleteClientReqDTO>());
                 DeleteClientResDTO deleteClientResDTO = response.Data;
                 response.Data = deleteClientResDTO.Adapt<DeleteClientResViewModel>();
+            }
+            catch { throw; }
+            return response;
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public CommonResponse Login([FromForm] LoginReqViewModel loginReqViewModel)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                response = _client.Login(loginReqViewModel.Adapt<LoginReqDTO>());
+                LoginResDTO loginResDTO = response.Data;
+                response.Data = loginResDTO.Adapt<LoginResViewModel>();
             }
             catch { throw; }
             return response;

@@ -1,9 +1,12 @@
 ﻿using DataLayer.Entities;
 using DTO.Client;
 using Helper.CommonModel;
+using Mapster;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -12,43 +15,29 @@ namespace BusinessLayer
     public class ClientBLL
     {
         public readonly ClientApiDbContext _db;
-
-        public ClientBLL(ClientApiDbContext db)
+        public readonly IHostingEnvironment _hostEnvironment;
+        public ClientBLL(ClientApiDbContext db, IHostingEnvironment hostEnvironment)
         {
             _db = db;
-
+            _hostEnvironment = hostEnvironment;
         }
         public CommonResponse GetClient()
         {
             CommonResponse response = new CommonResponse();
             try
             {
-                List<GetClientResDTO> lstGetClientResDTO = new List<GetClientResDTO>();
-                GetClientResDTO getClientResDTO = new GetClientResDTO();
-                var ClientList = _db.ClientMsts.Where(u => u.IsDelete == false).ToList();
+                List<ClientMst> lstGetClient = _db.ClientMsts.Where(u => u.IsDelete == false).ToList();
 
-                foreach (var clientMst in ClientList)
+                if (lstGetClient.Count > 0)
                 {
-                    getClientResDTO = new GetClientResDTO();
-                    getClientResDTO.Id = clientMst.Id;
-                    getClientResDTO.Fullname = clientMst.Fullname;
-                    getClientResDTO.Gender = clientMst.Gender;
-                    getClientResDTO.Dob = clientMst.Dob;
-                    getClientResDTO.Image = clientMst.Image;
-                    getClientResDTO.Username = clientMst.Username;
-
-                    lstGetClientResDTO.Add(getClientResDTO);
-                }
-                if (lstGetClientResDTO.Count > 0)
-                {
-                    response.Data = lstGetClientResDTO;
+                    response.Data = lstGetClient.Adapt<List<GetClientResDTO>>();
                     response.Status = true;
-                    response.Message = " list is found.";
+                    response.Message = "client data are found";
                     response.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
                 {
-                    response.Message = " list is not found";
+                    response.Message = "client data are not found";
                     response.StatusCode = System.Net.HttpStatusCode.NotFound;
                 }
             }
@@ -62,44 +51,43 @@ namespace BusinessLayer
             {
                 AddClientResDTO addClientResDTO = new AddClientResDTO();
                 ClientMst clientMst = new ClientMst();
-
-                if (addClientReqDTO.Fullname.Length > 0)
+                var clientmstlist = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
+                if (clientmstlist.Where(u => u.Fullname == addClientReqDTO.Fullname).ToList().Count > 0)
                 {
-                    if (_db.ClientMsts.Where(u => u.Fullname == addClientReqDTO.Fullname && u.Id != addClientReqDTO.Id || u.Username == addClientReqDTO.Username && u.Id != addClientReqDTO.Id).Any())
-                    {
-                        response.Message = "Fullname or username already exists";
-                        response.StatusCode = System.Net.HttpStatusCode.NotFound;
-                    }
-                    else
-                    {
-                        clientMst.Fullname = addClientReqDTO.Fullname.Trim();
-                        clientMst.Gender = addClientReqDTO.Gender.Trim();
-                        clientMst.Dob = addClientReqDTO.Dob;
-                        clientMst.Username = addClientReqDTO.Username.Trim();
-                        clientMst.Password = addClientReqDTO.Password.Trim();
-                        clientMst.Image = addClientReqDTO.Image.FileName;
-                        clientMst.CreatedBy = true;
-                        clientMst.IsActive = true;
-                        clientMst.CreatedOn = DateTime.Now;
-                       
-                        _db.ClientMsts.Add(clientMst);
-                        _db.SaveChanges();
 
-                        addClientResDTO.Id = clientMst.Id;
-
-                        if (addClientResDTO != null)
-                        {
-                            response.Data = addClientResDTO;
-                            response.Status = true;
-                            response.Message = "client added successfully";
-                            response.StatusCode = System.Net.HttpStatusCode.OK;
-                        }
-                    }
+                    response.Message = "Fullname already exists";
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                }
+                else if (clientmstlist.Where(u => u.Username == addClientReqDTO.Username).ToList().Count > 0)
+                {
+                    response.Message = "username already exists";
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
                 else
                 {
-                    response.Message = "full name can not be null";
-                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    string filename = uploadfile(addClientReqDTO.Image);
+                    clientMst.Fullname = addClientReqDTO.Fullname.Trim();
+                    clientMst.Gender = addClientReqDTO.Gender.Trim();
+                    clientMst.Dob = addClientReqDTO.Dob;
+                    clientMst.Username = addClientReqDTO.Username.Trim();
+                    clientMst.Password = addClientReqDTO.Password.Trim();
+                    clientMst.Image = filename;
+                    clientMst.CreatedBy = clientMst.Id;
+                    clientMst.IsActive = true;
+                    clientMst.CreatedOn = DateTime.Now;
+
+                    _db.ClientMsts.Add(clientMst);
+                    _db.SaveChanges();
+
+                    addClientResDTO.Id = clientMst.Id;
+
+                    if (addClientResDTO != null)
+                    {
+                        response.Data = addClientResDTO;
+                        response.Status = true;
+                        response.Message = "client added successfully";
+                        response.StatusCode = System.Net.HttpStatusCode.OK;
+                    }
                 }
             }
             catch { throw; }
@@ -113,53 +101,53 @@ namespace BusinessLayer
             {
                 UpdateClientResDTO updateClientResDTO = new UpdateClientResDTO();
 
-               var clientMst = _db.ClientMsts.FirstOrDefault(x => x.Id == updateClientReqDTO.Id && x.IsDelete == false);
+                var updateClient = _db.ClientMsts.FirstOrDefault(x => x.Id == updateClientReqDTO.Id && x.IsDelete == false);
 
-                if (clientMst != null)
+                if (updateClient != null)
                 {
-                    if (updateClientReqDTO.Fullname.Length > 0)
+                    var clientList = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
+
+                    if (clientList.FirstOrDefault(u => u.Fullname == updateClientReqDTO.Fullname && u.Id != updateClientReqDTO.Id) != null)
                     {
-                        if (_db.ClientMsts.Where(u => u.Fullname == updateClientReqDTO.Fullname && u.Id != updateClientReqDTO.Id || u.Username == updateClientReqDTO.Username && u.Id != updateClientReqDTO.Id).Any())
-                        {
-                            response.Message = "Fullname or username already exists";
-                            response.StatusCode = System.Net.HttpStatusCode.NotFound;
-                        }
-                        else
-                        {
-                            clientMst.Fullname = updateClientReqDTO.Fullname.Trim();
-                            clientMst.Gender = updateClientReqDTO.Gender.Trim();
-                            clientMst.Dob = updateClientReqDTO.Dob;
-                            clientMst.Username = updateClientReqDTO.Username.Trim();
-                            clientMst.Password = updateClientReqDTO.Password.Trim();
-                            clientMst.Image = updateClientReqDTO.Image.FileName;
-                            clientMst.UpdatedOn = DateTime.Now;
-                            clientMst.IsActive = true;
-                            clientMst.UpdateBy = true;
-
-                            _db.Entry(clientMst).State = EntityState.Modified;
-                            _db.SaveChanges();
-
-                            updateClientResDTO.Id = clientMst.Id;
-
-                            if (updateClientResDTO != null)
-                            {
-                                response.Data = updateClientResDTO;
-                                response.Status = true;
-                                response.Message = "client updated successfully";
-                                response.StatusCode = System.Net.HttpStatusCode.OK;
-                            }
-                        }
+                        response.Message = "Fullname already exists";
+                        response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    }
+                    else if (clientList.FirstOrDefault(u => u.Username == updateClientReqDTO.Username && u.Id != updateClientReqDTO.Id) != null)
+                    {
+                        response.Message = "username already exists";
+                        response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     }
                     else
                     {
-                        response.Message = "full name can not be null";
-                        response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                        string filename = uploadfile(updateClientReqDTO.Image);
+                        updateClient.Fullname = updateClientReqDTO.Fullname.Trim();
+                        updateClient.Gender = updateClientReqDTO.Gender.Trim();
+                        updateClient.Dob = updateClientReqDTO.Dob;
+                        updateClient.Username = updateClientReqDTO.Username.Trim();
+                        updateClient.Password = updateClientReqDTO.Password.Trim();
+                        updateClient.Image = filename;
+                        updateClient.UpdatedOn = DateTime.Now;
+                        updateClient.IsActive = true;
+                        updateClient.UpdateBy = updateClient.Id;
+
+                        _db.Entry(updateClient).State = EntityState.Modified;
+                        _db.SaveChanges();
+
+                        updateClientResDTO.Id = updateClient.Id;
+
+                        if (updateClientResDTO != null)
+                        {
+                            response.Data = updateClientResDTO;
+                            response.Status = true;
+                            response.Message = "client updated successfully";
+                            response.StatusCode = System.Net.HttpStatusCode.OK;
+                        }
                     }
                 }
                 else
                 {
-                    response.Message = "Id is not valid";
-                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    response.Message = "requestd id not valid";
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
             }
             catch { throw; }
@@ -172,19 +160,17 @@ namespace BusinessLayer
             try
             {
                 DeleteClientResDTO deleteClientResDTO = new DeleteClientResDTO();
-                ClientMst clientMst = new ClientMst();
 
-                clientMst = _db.ClientMsts.FirstOrDefault(x => x.Id == deleteClientReqDTO.Id && x.IsDelete == false);
+                var deleteClient = _db.ClientMsts.FirstOrDefault(x => x.Id == deleteClientReqDTO.Id && x.IsActive == true);
 
-                if (clientMst != null)
+                if (deleteClient != null)
                 {
-                    clientMst.Id = deleteClientReqDTO.Id;
-                    clientMst.IsActive = false;
-                    clientMst.IsDelete = true;
-                    _db.Remove(clientMst).State = EntityState.Modified;
+                    deleteClient.UpdatedOn = DateTime.Now;
+                    deleteClient.IsDelete = true;
+                    _db.Entry(deleteClient).State = EntityState.Modified;
                     _db.SaveChanges();
 
-                    deleteClientResDTO.Id = clientMst.Id;
+                    deleteClientResDTO.Id = deleteClient.Id;
 
                     if (deleteClientResDTO != null)
                     {
@@ -203,5 +189,49 @@ namespace BusinessLayer
             catch { throw; }
             return response;
         }
+
+        public CommonResponse Login(LoginReqDTO loginReqDTO)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                LoginResDTO loginResDTO = new LoginResDTO();
+
+                var updateClient = _db.ClientMsts.FirstOrDefault(x => x.Username == loginReqDTO.Username && x.IsActive == true);
+            }
+            catch { throw; }
+            return response;
+        }
+
+
+        public string uploadfile(dynamic filepath)
+        {
+            string path = Path.Combine(_hostEnvironment.WebRootPath, "Images");
+            string fileName = filepath.FileName;
+            string filePath = Path.Combine(path, fileName);
+            if (fileName != null)
+            {
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    filepath.CopyTo(fileStream);
+                }
+            }
+            return filePath;
+        }
+        //    public string Updateuploadfile(string updateClientReqDTO)
+        //    {
+        //        string path = Path.Combine("D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\");
+        //        string fileName = updateClientReqDTO.Image.FileName;
+        //        string filePath = Path.Combine(path, fileName);
+        //        if (fileName != null)
+        //        {
+        //            using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //            {
+        //                updateClientReqDTO.Image.CopyTo(fileStream);
+        //            }
+        //        }
+        //        return filePath;
+        //    }
+        //}
     }
 }

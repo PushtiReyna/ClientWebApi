@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (1).png",
+      "PackagePath": "staticwebassets\\Images\\Screenshot (1).png"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (2).png",
+      "PackagePath": "staticwebassets\\Images\\Screenshot (2).png"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (6).png",
+      "PackagePath": "staticwebassets\\Images\\Screenshot (6).png"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (7).png",
+      "PackagePath": "staticwebassets\\Images\\Screenshot (7).png"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (9).png",
+      "PackagePath": "staticwebassets\\Images\\Screenshot (9).png"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.ClientWebApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.ClientWebApi.props",
+      "PackagePath": "build\\ClientWebApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.ClientWebApi.props",
+      "PackagePath": "buildMultiTargeting\\ClientWebApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.ClientWebApi.props",
+      "PackagePath": "buildTransitive\\ClientWebApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
