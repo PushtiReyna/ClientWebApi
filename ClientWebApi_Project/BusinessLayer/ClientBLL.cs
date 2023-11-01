@@ -72,7 +72,7 @@ namespace BusinessLayer
                     clientMst.Username = addClientReqDTO.Username.Trim();
                     clientMst.Password = addClientReqDTO.Password.Trim();
                     clientMst.Image = filename;
-                    clientMst.CreatedBy = clientMst.Id;
+                    clientMst.CreatedBy = 1;
                     clientMst.IsActive = true;
                     clientMst.CreatedOn = DateTime.Now;
 
@@ -105,14 +105,14 @@ namespace BusinessLayer
 
                 if (updateClient != null)
                 {
-                    var clientList = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
+                    var clientmstlist = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
 
-                    if (clientList.FirstOrDefault(u => u.Fullname == updateClientReqDTO.Fullname && u.Id != updateClientReqDTO.Id) != null)
+                    if (clientmstlist.FirstOrDefault(u => u.Fullname == updateClientReqDTO.Fullname && u.Id != updateClientReqDTO.Id) != null)
                     {
                         response.Message = "Fullname already exists";
                         response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     }
-                    else if (clientList.FirstOrDefault(u => u.Username == updateClientReqDTO.Username && u.Id != updateClientReqDTO.Id) != null)
+                    else if (clientmstlist.FirstOrDefault(u => u.Username == updateClientReqDTO.Username && u.Id != updateClientReqDTO.Id) != null)
                     {
                         response.Message = "username already exists";
                         response.StatusCode = System.Net.HttpStatusCode.BadRequest;
@@ -196,8 +196,19 @@ namespace BusinessLayer
             try
             {
                 LoginResDTO loginResDTO = new LoginResDTO();
+                var clientmstlist = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
 
-                var updateClient = _db.ClientMsts.FirstOrDefault(x => x.Username == loginReqDTO.Username && x.IsActive == true);
+                if (clientmstlist.FirstOrDefault(u => u.Username == loginReqDTO.Username && u.Password == loginReqDTO.Password) != null)
+                {
+                    response.Message = "login";
+                    response.StatusCode = System.Net.HttpStatusCode.OK;
+                }
+                else
+                {
+                    response.Message = "invalid";
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                }
+
             }
             catch { throw; }
             return response;
@@ -218,20 +229,5 @@ namespace BusinessLayer
             }
             return filePath;
         }
-        //    public string Updateuploadfile(string updateClientReqDTO)
-        //    {
-        //        string path = Path.Combine("D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\");
-        //        string fileName = updateClientReqDTO.Image.FileName;
-        //        string filePath = Path.Combine(path, fileName);
-        //        if (fileName != null)
-        //        {
-        //            using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //            {
-        //                updateClientReqDTO.Image.CopyTo(fileStream);
-        //            }
-        //        }
-        //        return filePath;
-        //    }
-        //}
     }
 }

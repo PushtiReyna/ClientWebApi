@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\11.jpg",
+      "PackagePath": "staticwebassets\\Images\\11.jpg"
+    },
+    {
       "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (1).png",
       "PackagePath": "staticwebassets\\Images\\Screenshot (1).png"
     },
@@ -19,6 +23,10 @@
     {
       "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (9).png",
       "PackagePath": "staticwebassets\\Images\\Screenshot (9).png"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\demo.jpg",
+      "PackagePath": "staticwebassets\\Images\\demo.jpg"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.ClientWebApi.Microsoft.AspNetCore.StaticWebAssets.props",

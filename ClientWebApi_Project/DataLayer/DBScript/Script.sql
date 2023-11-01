@@ -15,3 +15,9 @@ CreatedOn datetime null,
 UpdateBy bit not null,
 UpdatedOn datetime null
 )
+
+  ALTER TABLE ClientMst
+ALTER COLUMN CreatedBy Int;
+
+  ALTER TABLE ClientMst
+ALTER COLUMN UpdateBy Int;

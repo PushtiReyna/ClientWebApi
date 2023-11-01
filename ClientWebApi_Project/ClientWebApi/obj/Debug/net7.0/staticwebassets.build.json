@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "p6W29ShmE6CxIkn2HTNoO20UrOAuVuNnzbmKJ0ESSeg=",
+  "Hash": "hbEU2coex58/avsS+GJcGH6357Ffcnio8F07P5GRNqM=",
   "Source": "ClientWebApi",
   "BasePath": "_content/ClientWebApi",
   "Mode": "Default",
@@ -16,6 +16,40 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\11.jpg",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/11.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\11.jpg"
+    },
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\demo.jpg",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/demo.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\demo.jpg"
+    },
     {
       "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\Screenshot (1).png",
       "SourceId": "ClientWebApi",
