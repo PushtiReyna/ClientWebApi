@@ -22,9 +22,6 @@ namespace DTO.Client
         public string Image { get; set; }
 
         public string Username { get; set; }
-
-        [DataType(DataType.Password)]
-
-        public string Password { get; set; }
+       
     }
 }
