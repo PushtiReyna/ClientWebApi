@@ -26,11 +26,11 @@ namespace BusinessLayer
             CommonResponse response = new CommonResponse();
             try
             {
-                List<ClientMst> lstGetClient = _db.ClientMsts.Where(u => u.IsDelete == false).ToList();
+                List<GetClientResDTO> lstGetClientResDTO = _db.ClientMsts.Where(u => u.IsDelete == false).ToList().Adapt<List<GetClientResDTO>>();
 
-                if (lstGetClient.Count > 0)
+                if (lstGetClientResDTO.Count > 0)
                 {
-                    response.Data = lstGetClient.Adapt<List<GetClientResDTO>>();
+                    response.Data = lstGetClientResDTO;
                     response.Status = true;
                     response.Message = "client data are found";
                     response.StatusCode = System.Net.HttpStatusCode.OK;
@@ -208,7 +208,6 @@ namespace BusinessLayer
                     response.Message = "invalid";
                     response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
-
             }
             catch { throw; }
             return response;
