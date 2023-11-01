@@ -198,7 +198,7 @@ namespace BusinessLayer
                 LoginResDTO loginResDTO = new LoginResDTO();
                 var clientmstlist = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
 
-                if (clientmstlist.FirstOrDefault(u => u.Username == loginReqDTO.Username && u.Password == loginReqDTO.Password) != null)
+                if (clientmstlist.Where(u => u.Username == loginReqDTO.Username && u.Password == loginReqDTO.Password).ToList().Count > 0)
                 {
                     response.Message = "login";
                     response.StatusCode = System.Net.HttpStatusCode.OK;
