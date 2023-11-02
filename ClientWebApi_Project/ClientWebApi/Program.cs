@@ -15,30 +15,43 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 
-builder.Services.AddAuthentication(s =>
-{
-    s.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    s.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-    .AddJwtBearer(s =>
-    {
-        s.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+//builder.Services.AddAuthentication(s =>
+//{
+//    s.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    s.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//})
+//    .AddJwtBearer(s =>
+//    {
+//        s.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidateAudience = true,
+//            ValidateLifetime = true,
+//            ValidateIssuerSigningKey = true,
 
-            ValidIssuer = "https://localhost:7246/",
-            ValidAudience = "https://localhost:7246/",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@2410"))
-        };
-    });
+//            ValidIssuer = "https://localhost:7246/",
+//            ValidAudience = "https://localhost:7246/",
+//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@2410"))
+//        };
+//    });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
 
 
 builder.Services.AddSwaggerGen(c =>
 {
-  //  c.EnableAnnotations();
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ClientWebApi", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

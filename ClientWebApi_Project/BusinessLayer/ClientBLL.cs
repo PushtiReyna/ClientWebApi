@@ -5,6 +5,7 @@ using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,12 @@ namespace BusinessLayer
     {
         public readonly ClientApiDbContext _db;
         public readonly IHostingEnvironment _hostEnvironment;
-        public ClientBLL(ClientApiDbContext db, IHostingEnvironment hostEnvironment)
+        public readonly IConfiguration _configuration;
+        public ClientBLL(ClientApiDbContext db, IHostingEnvironment hostEnvironment, IConfiguration configuration)
         {
             _db = db;
             _hostEnvironment = hostEnvironment;
+            _configuration = configuration;
         }
         public CommonResponse GetClient()
         {
@@ -204,20 +207,40 @@ namespace BusinessLayer
 
                 if (clientmstlist.Where(u => u.Username == loginReqDTO.Username && u.Password == loginReqDTO.Password).ToList().Count > 0)
                 {
-                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@2410"));
-                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    #region
 
-                    var tokenOptions = new JwtSecurityToken(
-                        issuer: "https://localhost:7246/",
-                        audience: "https://localhost:7246/",
-                        claims: new List<Claim>(),
+                    //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@2410"));
+                    //    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    //    var tokenOptions = new JwtSecurityToken(
+                    //        issuer: "https://localhost:7246/",
+                    //        audience: "https://localhost:7246/",
+                    //        claims: new List<Claim>(),
+                    //        expires: DateTime.Now.AddMinutes(5),
+                    //        signingCredentials: signinCredentials
+                    //    );
+                    //    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+                    #endregion
+
+                    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+                    var claims = new[]
+                    {
+                          new Claim(JwtRegisteredClaimNames.Name,loginReqDTO.Username),
+                          new Claim(JwtRegisteredClaimNames.Name,loginReqDTO.Password)
+                    };
+                    var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                        _configuration["Jwt:Audience"],
+                        claims,
                         expires: DateTime.Now.AddMinutes(5),
-                        signingCredentials: signinCredentials
-                    );
+                        signingCredentials: credentials);
 
-                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                   
-                    response.Message = tokenString;
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+                    loginResDTO.Token = tokenString;
+
+                    response.Data = loginResDTO;
+                    response.Message = "Token get successfully";
                     response.Status = true;
                     response.StatusCode = System.Net.HttpStatusCode.OK;
                 }
@@ -237,6 +260,7 @@ namespace BusinessLayer
             string path = Path.Combine(_hostEnvironment.WebRootPath, "Images");
             string fileName = filepath.FileName;
             string filePath = Path.Combine(path, fileName);
+
             if (fileName != null)
             {
                 using (var fileStream = new FileStream(filePath, FileMode.Create))

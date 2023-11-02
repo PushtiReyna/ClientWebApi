@@ -82,7 +82,7 @@ namespace ClientWebApi.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public CommonResponse Login([FromForm] LoginReqViewModel loginReqViewModel)
+        public CommonResponse Login(LoginReqViewModel loginReqViewModel)
         {
             CommonResponse response = new CommonResponse();
             try
@@ -90,6 +90,7 @@ namespace ClientWebApi.Controllers
                 response = _client.Login(loginReqViewModel.Adapt<LoginReqDTO>());
                 LoginResDTO loginResDTO = response.Data;
                 response.Data = loginResDTO.Adapt<LoginResViewModel>();
+                
             }
             catch { throw; }
             return response;
