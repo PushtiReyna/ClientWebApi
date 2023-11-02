@@ -1,7 +1,10 @@
 using ClientWebApi;
 using DataLayer.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,17 +14,55 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen( c =>
+
+builder.Services.AddAuthentication(s =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api",Version = "v1" });
+    s.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    s.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(s =>
+    {
+        s.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = "https://localhost:7246/",
+            ValidAudience = "https://localhost:7246/",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@2410"))
+        };
+    });
+
+
+builder.Services.AddSwaggerGen(c =>
+{
+  //  c.EnableAnnotations();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ClientWebApi", Version = "v1" });
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        In = ParameterLocation.Header,
-        Description = "Please insert token",
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
         BearerFormat = "JWT",
-        Scheme = "bearer"
+        In = ParameterLocation.Header,
+        Description = "Please insert token",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+             new OpenApiSecurityScheme
+               {
+                  Reference = new OpenApiReference
+                  {
+                    Type = ReferenceType.SecurityScheme,
+                     Id = "Bearer"
+                   }
+               },
+         new string[] {}
+        }
     });
 });
 
@@ -36,13 +77,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI( c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
+    app.UseSwaggerUI();
 }
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "api");
-});
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();

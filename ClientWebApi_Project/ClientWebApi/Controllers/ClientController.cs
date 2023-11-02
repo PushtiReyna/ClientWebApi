@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interface;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClientWebApi.Controllers
 {
+  
+
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
@@ -20,7 +23,7 @@ namespace ClientWebApi.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public CommonResponse GetClient()
         {
             CommonResponse response = new CommonResponse();
@@ -34,7 +37,7 @@ namespace ClientWebApi.Controllers
             return response;
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         [Route("AddClient")]
         public CommonResponse AddClient([FromForm] AddClientReqViewModel addClientReqViewModel)
         {
@@ -49,7 +52,7 @@ namespace ClientWebApi.Controllers
             return response;
         }
 
-        [HttpPut]
+        [HttpPut, Authorize]
         public CommonResponse UpdateClient([FromForm] UpdateClientReqViewModel updateClientReqViewModel)
         {
             CommonResponse response = new CommonResponse();
@@ -63,7 +66,7 @@ namespace ClientWebApi.Controllers
             return response;
         }
 
-        [HttpDelete]
+        [HttpDelete, Authorize]
         public CommonResponse DeleteClient([FromForm] DeleteClientReqViewModel deleteClientReqViewModel)
         {
             CommonResponse response = new CommonResponse();

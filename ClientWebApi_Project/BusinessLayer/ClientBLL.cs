@@ -5,9 +5,13 @@ using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace BusinessLayer
@@ -200,12 +204,26 @@ namespace BusinessLayer
 
                 if (clientmstlist.Where(u => u.Username == loginReqDTO.Username && u.Password == loginReqDTO.Password).ToList().Count > 0)
                 {
-                    response.Message = "login";
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@2410"));
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                    var tokenOptions = new JwtSecurityToken(
+                        issuer: "https://localhost:7246/",
+                        audience: "https://localhost:7246/",
+                        claims: new List<Claim>(),
+                        expires: DateTime.Now.AddMinutes(5),
+                        signingCredentials: signinCredentials
+                    );
+
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                   
+                    response.Message = tokenString;
+                    response.Status = true;
                     response.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
                 {
-                    response.Message = "invalid";
+                    response.Message = "Request is not correct";
                     response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
             }

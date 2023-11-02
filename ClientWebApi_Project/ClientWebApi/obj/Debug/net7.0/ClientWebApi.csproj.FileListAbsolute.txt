@@ -87,3 +87,4 @@ D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.pdb
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.genruntimeconfig.cache
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ref\ClientWebApi.dll
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
