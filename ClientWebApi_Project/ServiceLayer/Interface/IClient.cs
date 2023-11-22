@@ -19,5 +19,7 @@ namespace ServiceLayer.Interface
         public CommonResponse DeleteClient(DeleteClientReqDTO deleteClientReqDTO);
 
         public CommonResponse Login(LoginReqDTO loginReqDTO);
+
+        public CommonResponse Refresh(RefreshReqDTO refreshReqDTO);
     }
 }

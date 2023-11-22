@@ -38,10 +38,14 @@ public partial class ClientApiDbContext : DbContext
             entity.Property(e => e.Gender)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Image).HasMaxLength(100);
+            entity.Property(e => e.Image).HasMaxLength(400);
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.RefreshToken).HasMaxLength(200);
+            entity.Property(e => e.RefreshTokenExpiryTime).HasColumnType("datetime");
+            entity.Property(e => e.Token).HasMaxLength(500);
+            entity.Property(e => e.TokenExpiryTime).HasColumnType("datetime");
             entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)

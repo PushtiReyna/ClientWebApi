@@ -1,11 +1,8 @@
 ﻿namespace ClientWebApi.ViewModel
 {
-    public class LoginResViewModel
+    public class RefreshReqViewModel
     {
         public string Token { get; set; }
         public string? RefreshToken { get; set; }
-        public DateTime? TokenExpiryTime { get; set; }
-
-
     }
 }

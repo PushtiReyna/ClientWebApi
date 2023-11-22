@@ -21,3 +21,15 @@ ALTER COLUMN CreatedBy Int;
 
   ALTER TABLE ClientMst
 ALTER COLUMN UpdateBy Int;
+
+ alter table ClientMst
+  add  RefreshToken  nvarchar(200)
+
+ alter table ClientMst
+  add  RefreshTokenExpiryTime datetime 
+
+     alter table ClientMst
+  add  Token  nvarchar(500)
+
+ alter table ClientMst
+  add  TokenExpiryTime datetime 

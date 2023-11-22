@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Entities;
 
@@ -16,7 +13,7 @@ public partial class ClientMst
 
     public DateTime Dob { get; set; }
 
-    public string Image { get; set; } = null!;
+    public string? Image { get; set; }
 
     public string Username { get; set; } = null!;
 
@@ -26,11 +23,19 @@ public partial class ClientMst
 
     public bool IsDelete { get; set; }
 
-    public int CreatedBy { get; set; }
+    public int? CreatedBy { get; set; }
 
     public DateTime? CreatedOn { get; set; }
 
-    public int UpdateBy { get; set; }
+    public int? UpdateBy { get; set; }
 
     public DateTime? UpdatedOn { get; set; }
+
+    public string? RefreshToken { get; set; }
+
+    public DateTime? RefreshTokenExpiryTime { get; set; }
+
+    public string? Token { get; set; }
+
+    public DateTime? TokenExpiryTime { get; set; }
 }

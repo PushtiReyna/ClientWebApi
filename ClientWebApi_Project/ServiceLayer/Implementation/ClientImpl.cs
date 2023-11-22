@@ -39,5 +39,9 @@ namespace ServiceLayer.Implementation
         {
             return _clientBLL.Login(loginReqDTO);
         }
+        public CommonResponse Refresh(RefreshReqDTO refreshReqDTO)
+        {
+            return _clientBLL.Refresh(refreshReqDTO);
+        }
     }
 }

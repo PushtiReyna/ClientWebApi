@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace DTO.Client
 {
-    public class LoginResDTO
+    public class RefreshResDTO
     {
-        
         public string Token { get; set; }
         public string? RefreshToken { get; set; }
-        public DateTime? TokenExpiryTime { get; set; }
-
-
     }
 }
