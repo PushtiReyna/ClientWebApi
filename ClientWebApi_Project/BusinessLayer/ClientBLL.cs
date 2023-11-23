@@ -61,13 +61,13 @@ namespace BusinessLayer
                 AddClientResDTO addClientResDTO = new AddClientResDTO();
                 ClientMst clientMst = new ClientMst();
                 var clientmstlist = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
-                if (clientmstlist.Where(u => u.Fullname == addClientReqDTO.Fullname).ToList().Count > 0)
+                if (clientmstlist.Where(u => u.Fullname == addClientReqDTO.Fullname.Trim()).ToList().Count > 0)
                 {
 
                     response.Message = "Fullname already exists";
                     response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
-                else if (clientmstlist.Where(u => u.Username == addClientReqDTO.Username).ToList().Count > 0)
+                else if (clientmstlist.Where(u => u.Username == addClientReqDTO.Username.Trim()).ToList().Count > 0)
                 {
                     response.Message = "username already exists";
                     response.StatusCode = System.Net.HttpStatusCode.BadRequest;
@@ -116,12 +116,12 @@ namespace BusinessLayer
                 {
                     var clientmstlist = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
 
-                    if (clientmstlist.FirstOrDefault(u => u.Fullname == updateClientReqDTO.Fullname && u.Id != updateClientReqDTO.Id) != null)
+                    if (clientmstlist.FirstOrDefault(u => u.Fullname == updateClientReqDTO.Fullname.Trim() && u.Id != updateClientReqDTO.Id) != null)
                     {
                         response.Message = "Fullname already exists";
                         response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     }
-                    else if (clientmstlist.FirstOrDefault(u => u.Username == updateClientReqDTO.Username && u.Id != updateClientReqDTO.Id) != null)
+                    else if (clientmstlist.FirstOrDefault(u => u.Username == updateClientReqDTO.Username.Trim() && u.Id != updateClientReqDTO.Id) != null)
                     {
                         response.Message = "username already exists";
                         response.StatusCode = System.Net.HttpStatusCode.BadRequest;
