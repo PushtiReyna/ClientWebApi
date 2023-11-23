@@ -38,4 +38,8 @@ public partial class ClientMst
     public string? Token { get; set; }
 
     public DateTime? TokenExpiryTime { get; set; }
+
+    public string? DocumentName { get; set; }
+
+    public string? Document { get; set; }
 }

@@ -63,7 +63,6 @@ namespace BusinessLayer
                 var clientmstlist = _db.ClientMsts.Where(x => x.IsDelete == false).ToList();
                 if (clientmstlist.Where(u => u.Fullname == addClientReqDTO.Fullname.Trim()).ToList().Count > 0)
                 {
-
                     response.Message = "Fullname already exists";
                     response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
@@ -170,12 +169,13 @@ namespace BusinessLayer
             {
                 DeleteClientResDTO deleteClientResDTO = new DeleteClientResDTO();
 
-                var deleteClient = _db.ClientMsts.FirstOrDefault(x => x.Id == deleteClientReqDTO.Id && x.IsActive == true);
+                var deleteClient = _db.ClientMsts.FirstOrDefault(x => x.Id == deleteClientReqDTO.Id && x.IsDelete == false);
 
                 if (deleteClient != null)
                 {
                     deleteClient.UpdatedOn = DateTime.Now;
                     deleteClient.IsDelete = true;
+                    deleteClient.UpdateBy = 1;
                     _db.Entry(deleteClient).State = EntityState.Modified;
                     _db.SaveChanges();
 
@@ -197,6 +197,124 @@ namespace BusinessLayer
             }
             catch { throw; }
             return response;
+        }
+
+
+        public CommonResponse UploadDocument(UploadDocumentReqDTO uploadDocumentReqDTO)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                UploadDocumentResDTO uploadDocumentResDTO = new UploadDocumentResDTO();
+
+                var updateClient = _db.ClientMsts.FirstOrDefault(x => x.Token == uploadDocumentReqDTO.Token && x.IsDelete == false);
+
+                if (updateClient != null)
+                {
+                    string filename = uploadDocument(uploadDocumentReqDTO.Document);
+
+                    updateClient.DocumentName = uploadDocumentReqDTO.DocumentName;
+                    updateClient.Document = filename;
+                    updateClient.UpdatedOn = DateTime.Now;
+                    updateClient.IsActive = true;
+                    updateClient.UpdateBy = 1;
+
+                    _db.Entry(updateClient).State = EntityState.Modified;
+                    _db.SaveChanges();
+
+                    uploadDocumentResDTO.Id = updateClient.Id;
+
+                    if (uploadDocumentResDTO != null)
+                    {
+                        response.Data = uploadDocumentResDTO;
+                        response.Status = true;
+                        response.Message = "document updated successfully";
+                        response.StatusCode = System.Net.HttpStatusCode.OK;
+                    }
+                }
+                else
+                {
+                    response.Message = "requested Token not valid";
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                }
+            }
+            catch { throw; }
+            return response;
+        }
+
+
+        #region post Method
+        ////post Method
+        //public CommonResponse UploadDocument(UploadDocumentReqDTO uploadDocumentReqDTO)
+        //{
+        //    CommonResponse response = new CommonResponse();
+        //    try
+        //    {
+        //        UploadDocumentResDTO uploadDocumentResDTO = new UploadDocumentResDTO();
+
+        //        var updateClient = _db.ClientMsts.FirstOrDefault(x => x.Token == uploadDocumentReqDTO.Token && x.IsDelete == false);
+
+        //        if (updateClient != null)
+        //        {
+        //            var documentDetail = _db.DocumentMsts.FirstOrDefault(x => x.Id == updateClient.Id);
+        //            DocumentMst documentMst = new DocumentMst();
+        //            if (documentDetail == null)
+        //            {
+        //                string filename = uploadDocument(uploadDocumentReqDTO.Document);
+
+        //                documentMst.DocumentName = uploadDocumentReqDTO.DocumentName;
+        //                documentMst.Document = filename;
+        //                documentMst.IsActive = true;
+        //                documentMst.Id = updateClient.Id;
+        //                documentMst.CreatedBy = true;
+        //                documentMst.CreatedOn = DateTime.Now;
+
+        //                _db.DocumentMsts.Add(documentMst);
+        //                _db.SaveChanges();
+
+        //                uploadDocumentResDTO.Id = updateClient.Id;
+
+        //                if (uploadDocumentResDTO != null)
+        //                {
+        //                    response.Data = uploadDocumentResDTO;
+        //                    response.Status = true;
+        //                    response.Message = "document updated successfully";
+        //                    response.StatusCode = System.Net.HttpStatusCode.OK;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                response.Message = "User already upload document";
+        //                response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            response.Message = "requested Token not valid";
+        //            response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+        //        }
+        //    }
+        //    catch { throw; }
+        //    return response;
+        //} 
+        #endregion
+
+
+        public string uploadDocument(dynamic documentPath)
+        {
+            string path = Path.Combine(_hostEnvironment.WebRootPath, "Document");
+            string fileName = documentPath.FileName;
+            string filePath = Path.Combine(path, fileName);
+           string relativePath = Path.Combine("Documents", fileName);
+
+            if (fileName != null)
+            {
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    documentPath.CopyTo(fileStream);
+                }
+            }
+            return relativePath;
         }
 
         public CommonResponse Login(LoginReqDTO loginReqDTO)
@@ -296,9 +414,6 @@ namespace BusinessLayer
 
         public string uploadfile(dynamic filepath)
         {
-
-            string folder = "Images/";
-
             string path = Path.Combine(_hostEnvironment.WebRootPath, "Images");
             string fileName = filepath.FileName;
             string filePath = Path.Combine(path, fileName);
@@ -334,7 +449,7 @@ namespace BusinessLayer
                     {
                         ValidateIssuer = false,
                         ValidateAudience = false,
-                        ValidateLifetime = true,
+                        ValidateLifetime = false,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]))
 
@@ -370,7 +485,7 @@ namespace BusinessLayer
                             {
                                new Claim(ClaimTypes.Name,clientmst.Username),
                                new Claim("Password",clientmst.Password)
-                        };
+                            };
                             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
                                    _configuration["Jwt:Audience"],
                                    claims,
@@ -399,7 +514,7 @@ namespace BusinessLayer
                             clientmst.UpdatedOn = DateTime.Now;
 
                             _db.Entry(clientmst).State = EntityState.Modified;
-                            _db.SaveChanges(); 
+                            _db.SaveChanges();
                             #endregion
 
                             refreshResDTO.Token = newToken;

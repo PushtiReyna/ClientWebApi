@@ -40,7 +40,7 @@ namespace ClientWebApi.Controllers
 
         [HttpPost]
         [Route("AddClient")]
-        public CommonResponse AddClient([FromBody] AddClientReqViewModel addClientReqViewModel)
+        public CommonResponse AddClient([FromForm] AddClientReqViewModel addClientReqViewModel)
         {
             CommonResponse response = new CommonResponse();
             try
@@ -54,6 +54,7 @@ namespace ClientWebApi.Controllers
         }
 
         [HttpPut]
+        [Route("UpdateClient")]
         public CommonResponse UpdateClient([FromForm] UpdateClientReqViewModel updateClientReqViewModel)
         {
             CommonResponse response = new CommonResponse();
@@ -67,7 +68,8 @@ namespace ClientWebApi.Controllers
             return response;
         }
 
-        [HttpDelete, Authorize]
+        [HttpDelete]
+        [Route("DeleteClient")]
         public CommonResponse DeleteClient(DeleteClientReqViewModel deleteClientReqViewModel)
         {
             CommonResponse response = new CommonResponse();
@@ -80,6 +82,39 @@ namespace ClientWebApi.Controllers
             catch { throw; }
             return response;
         }
+
+
+        [HttpPut]
+        [Route("UploadDocument")]
+        public CommonResponse UploadDocument([FromForm] UploadDocumentReqViewModel uploadDocumentReqViewModel)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                response = _client.UploadDocument(uploadDocumentReqViewModel.Adapt<UploadDocumentReqDTO>());
+                UploadDocumentResDTO uploadDocumentResDTO = response.Data;
+                response.Data = uploadDocumentResDTO.Adapt<UploadDocumentResViewModel>();
+            }
+            catch { throw; }
+            return response;
+        }
+
+        #region MyRegion
+        //[HttpPost]
+        //[Route("UploadDocument")]
+        //public CommonResponse UploadDocument([FromForm] UploadDocumentReqViewModel uploadDocumentReqViewModel)
+        //{
+        //    CommonResponse response = new CommonResponse();
+        //    try
+        //    {
+        //        response = _client.UploadDocument(uploadDocumentReqViewModel.Adapt<UploadDocumentReqDTO>());
+        //        UploadDocumentResDTO uploadDocumentResDTO = response.Data;
+        //        response.Data = uploadDocumentResDTO.Adapt<UploadDocumentResViewModel>();
+        //    }
+        //    catch { throw; }
+        //    return response;
+        //} 
+        #endregion
 
         [HttpPost]
         [AllowAnonymous]

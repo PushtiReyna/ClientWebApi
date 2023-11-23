@@ -31,14 +31,23 @@ namespace ServiceLayer.Implementation
         {
             return _clientBLL.UpdateClient(updateClientReqDTO);
         }
+
         public CommonResponse DeleteClient(DeleteClientReqDTO deleteClientReqDTO)
         {
             return _clientBLL.DeleteClient(deleteClientReqDTO);
         }
+
+        public CommonResponse UploadDocument(UploadDocumentReqDTO uploadDocumentReqDTO)
+        {
+
+            return _clientBLL.UploadDocument(uploadDocumentReqDTO);
+        }
+
         public CommonResponse Login(LoginReqDTO loginReqDTO)
         {
             return _clientBLL.Login(loginReqDTO);
         }
+
         public CommonResponse Refresh(RefreshReqDTO refreshReqDTO)
         {
             return _clientBLL.Refresh(refreshReqDTO);

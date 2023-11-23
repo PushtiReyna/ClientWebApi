@@ -33,3 +33,23 @@ ALTER COLUMN UpdateBy Int;
 
  alter table ClientMst
   add  TokenExpiryTime datetime 
+
+  
+   alter table ClientMst
+  add  DocumentName  nvarchar(200)
+
+   alter table ClientMst
+  add  Document  nvarchar(max)
+
+--  Create Table DocumentMst(
+--DocumentId int not null identity(1,1) PRIMARY KEY,
+--DocumentName  nvarchar(200),
+--Document  nvarchar(max),
+--Id int not null,
+--IsActive bit not null,
+--IsDelete bit not null,
+--CreatedBy bit not null,
+--CreatedOn datetime null,
+--UpdateBy bit not null,
+--UpdatedOn datetime null
+--)

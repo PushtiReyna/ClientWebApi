@@ -22,6 +22,10 @@ namespace DTO.Client
         public string Image { get; set; }
 
         public string Username { get; set; }
-       
+
+        public string? DocumentName { get; set; }
+
+        public string? Document { get; set; }
+
     }
 }

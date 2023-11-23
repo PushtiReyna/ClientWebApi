@@ -1,6 +1,38 @@
 {
   "Files": [
     {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\ABC.pdf",
+      "PackagePath": "staticwebassets\\Document\\ABC.pdf"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\CHW (1).pdf",
+      "PackagePath": "staticwebassets\\Document\\CHW (1).pdf"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\Example.pdf",
+      "PackagePath": "staticwebassets\\Document\\Example.pdf"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\ExportData (1).pdf",
+      "PackagePath": "staticwebassets\\Document\\ExportData (1).pdf"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\ImportExcelFile - UserExcel.pdf",
+      "PackagePath": "staticwebassets\\Document\\ImportExcelFile - UserExcel.pdf"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\Pushti Task.pdf",
+      "PackagePath": "staticwebassets\\Document\\Pushti Task.pdf"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\Summary Report.pdf",
+      "PackagePath": "staticwebassets\\Document\\Summary Report.pdf"
+    },
+    {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Document\\fff.pdf",
+      "PackagePath": "staticwebassets\\Document\\fff.pdf"
+    },
+    {
       "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\11.jpg",
       "PackagePath": "staticwebassets\\Images\\11.jpg"
     },

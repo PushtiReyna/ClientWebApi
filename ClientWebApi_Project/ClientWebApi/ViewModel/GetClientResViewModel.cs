@@ -16,5 +16,9 @@ namespace ClientWebApi.ViewModel
 
         public string Username { get; set; }
 
+        public string? DocumentName { get; set; }
+
+        public string? Document { get; set; }
+
     }
 }
