@@ -6,6 +6,7 @@ D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\D
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.AssemblyInfoInputs.cache
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.AssemblyInfo.cs
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.csproj.CoreCompileInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.sourcelink.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.dll
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\refint\DTO.dll
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\DTO\obj\Debug\net7.0\DTO.pdb

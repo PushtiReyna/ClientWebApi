@@ -42,4 +42,6 @@ public partial class ClientMst
     public string? DocumentName { get; set; }
 
     public string? Document { get; set; }
+
+    public decimal? Ctc { get; set; }
 }

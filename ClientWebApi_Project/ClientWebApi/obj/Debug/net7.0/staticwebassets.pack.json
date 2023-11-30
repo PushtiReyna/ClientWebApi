@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\Images\\Screenshot (9).png"
     },
     {
+      "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\book1.jfif",
+      "PackagePath": "staticwebassets\\Images\\book1.jfif"
+    },
+    {
       "Id": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\demo.jpg",
       "PackagePath": "staticwebassets\\Images\\demo.jpg"
     },

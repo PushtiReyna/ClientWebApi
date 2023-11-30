@@ -74,13 +74,14 @@ D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.csproj.CoreCompileInputs.cache
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.MvcApplicationPartsAssemblyInfo.cs
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.MvcApplicationPartsAssemblyInfo.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.sourcelink.json
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets.build.json
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets.development.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets\msbuild.ClientWebApi.Microsoft.AspNetCore.StaticWebAssets.props
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets\msbuild.build.ClientWebApi.props
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ClientWebApi.props
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.ClientWebApi.props
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets.pack.json
-D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets.build.json
-D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\staticwebassets.development.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\scopedcss\bundle\ClientWebApi.styles.css
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.csproj.CopyComplete
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ClientWebApi\obj\Debug\net7.0\ClientWebApi.dll

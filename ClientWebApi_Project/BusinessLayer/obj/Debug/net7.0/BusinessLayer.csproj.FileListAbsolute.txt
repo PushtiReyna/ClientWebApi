@@ -12,6 +12,7 @@ D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debu
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debug\net7.0\BusinessLayer.AssemblyInfoInputs.cache
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debug\net7.0\BusinessLayer.AssemblyInfo.cs
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debug\net7.0\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debug\net7.0\BusinessLayer.sourcelink.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debug\net7.0\BusinessLayer.csproj.CopyComplete
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debug\net7.0\BusinessLayer.dll
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\BusinessLayer\obj\Debug\net7.0\refint\BusinessLayer.dll

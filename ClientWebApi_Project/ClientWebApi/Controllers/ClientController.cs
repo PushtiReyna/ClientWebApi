@@ -149,5 +149,20 @@ namespace ClientWebApi.Controllers
             return response;
         }
 
+        [HttpPost]
+        [Route("SalaryClient")]
+        public CommonResponse SalaryClient(SalaryClientReqViewModel salaryClientReqViewModel)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                response = _client.SalaryClient(salaryClientReqViewModel.Adapt<SalaryClientReqDTO>());
+                SalaryClientResDTO salaryClientReqDTO = response.Data;
+                response.Data = salaryClientReqDTO.Adapt<SalaryClientResViewModel>();
+            }
+            catch { throw; }
+            return response;
+        }
+
     }
 }

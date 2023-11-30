@@ -18,5 +18,6 @@ namespace ClientWebApi.ViewModel
         public string Username { get; set; } = null!;
 
         public string Password { get; set; } = null!;
+        public decimal? Ctc { get; set; }
     }
 }

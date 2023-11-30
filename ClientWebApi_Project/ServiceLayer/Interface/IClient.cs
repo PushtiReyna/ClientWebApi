@@ -1,11 +1,5 @@
 ﻿using DTO.Client;
 using Helper.CommonModel;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Interface
 {
@@ -21,6 +15,8 @@ namespace ServiceLayer.Interface
         public CommonResponse UploadDocument(UploadDocumentReqDTO uploadDocumentReqDTO);
 
         public CommonResponse Login(LoginReqDTO loginReqDTO);
+
+        public CommonResponse SalaryClient(SalaryClientReqDTO salaryClientReqDTO);
 
         public CommonResponse Refresh(RefreshReqDTO refreshReqDTO);
     }

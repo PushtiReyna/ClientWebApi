@@ -14,6 +14,7 @@ D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug\net7.0\ServiceLayer.AssemblyInfoInputs.cache
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug\net7.0\ServiceLayer.AssemblyInfo.cs
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug\net7.0\ServiceLayer.csproj.CoreCompileInputs.cache
+D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug\net7.0\ServiceLayer.sourcelink.json
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug\net7.0\ServiceLayer.csproj.CopyComplete
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug\net7.0\ServiceLayer.dll
 D:\project\ClientWebApi\ClientWebApi\ClientWebApi_Project\ServiceLayer\obj\Debug\net7.0\refint\ServiceLayer.dll
