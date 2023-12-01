@@ -11,5 +11,7 @@ namespace ServiceLayer.Interface
     public interface ISalary
     {
         public CommonResponse SalaryClient(SalaryClientReqDTO salaryClientReqDTO);
+
+        public CommonResponse DownloadSalary(DownloadSalaryReqDTO downloadSalaryReqDTO);
     }
 }

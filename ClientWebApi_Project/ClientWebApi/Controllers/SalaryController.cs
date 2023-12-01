@@ -35,5 +35,22 @@ namespace ClientWebApi.Controllers
             catch { throw; }
             return response;
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("DownloadSalary")]
+        public CommonResponse DownloadSalary(DownloadSalaryReqViewModel downloadSalaryReqViewModel)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                response = _salary.DownloadSalary(downloadSalaryReqViewModel.Adapt<DownloadSalaryReqDTO>());
+                DownloadSalaryResDTO downloadSalaryResDTO = response.Data;
+                response.Data = downloadSalaryResDTO.Adapt<DownloadSalaryResViewModel>();
+            }
+            catch { throw; }
+            return response;
+        }
+
     }
 }

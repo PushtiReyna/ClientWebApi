@@ -22,5 +22,10 @@ namespace ServiceLayer.Implementation
         {
             return _salaryBLL.SalaryClient(salaryClientReqDTO);
         }
+
+        public CommonResponse DownloadSalary(DownloadSalaryReqDTO downloadSalaryReqDTO)
+        {
+            return _salaryBLL.DownloadSalary(downloadSalaryReqDTO);
+        }
     }
 }

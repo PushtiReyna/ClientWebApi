@@ -5,8 +5,6 @@ namespace ClientWebApi.ViewModel.Client
 {
     public class AddClientReqViewModel
     {
-        //public int Id { get; set; }
-
         public string Fullname { get; set; } = null!;
 
         public string Gender { get; set; } = null!;

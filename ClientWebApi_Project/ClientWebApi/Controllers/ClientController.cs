@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interface;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
-using ClientWebApi.ViewModel.Login;
-using DTO.Login;
 using ClientWebApi.ViewModel.Client;
 
 namespace ClientWebApi.Controllers

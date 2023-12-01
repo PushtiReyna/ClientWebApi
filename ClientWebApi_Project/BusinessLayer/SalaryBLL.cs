@@ -1,12 +1,18 @@
 ﻿using DataLayer.Entities;
 using DTO.Salary;
 using Helper.CommonModel;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
+using Document = iTextSharp.text.Document;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Globalization;
 
 namespace BusinessLayer
 {
@@ -17,6 +23,8 @@ namespace BusinessLayer
         {
             _db = db;
         }
+
+        //take filed employeeid month and year
 
         public CommonResponse SalaryClient(SalaryClientReqDTO salaryClientReqDTO)
         {
@@ -180,5 +188,576 @@ namespace BusinessLayer
             catch { throw; }
             return response;
         }
+
+        public CommonResponse DownloadSalary(DownloadSalaryReqDTO downloadSalaryReqDTO)
+        {
+            CommonResponse response = new CommonResponse();
+            try
+            {
+                var salaryDetail = _db.SalaryMsts.FirstOrDefault(x => x.Salaryid == downloadSalaryReqDTO.Salaryid);
+                if (salaryDetail != null)
+                {
+                    var clientDetail = _db.ClientMsts.FirstOrDefault(x => x.Id == salaryDetail.Id);
+                    if (clientDetail != null)
+                    {
+                        Document pdfDoc = new Document(PageSize.A4, 25, 25, 25, 15);
+
+                        if (System.IO.File.Exists("D:\\SalarySlip.pdf"))
+                        {
+                            System.IO.File.Delete("D:\\SalarySlip.pdf");
+                        }
+                        FileStream FS = new FileStream("D:\\SalarySlip.pdf", FileMode.Create);
+
+                        PdfWriter pdfWriter = PdfWriter.GetInstance(pdfDoc, FS);
+
+                        pdfDoc.Open();
+
+                        PdfPCell cell = new PdfPCell();
+
+                        //name and address
+                        Paragraph header = new Paragraph("Reyna Solutions LLP", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        header.SpacingBefore = 10f;
+                        header.IndentationLeft = 200f;
+                        pdfDoc.Add(header);
+
+                        header = new Paragraph("202/401, Iscon Atria 2, Opp GET, Gotri, Vadodara-390021", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        header.IndentationLeft = 100f;
+                        pdfDoc.Add(header);
+
+                        //DateTimeFormatInfo.CurrentInfo.GetMonthName(salaryDetail.Month)
+
+                        header = new Paragraph("Pay Slip for the month of" + "" + DateTimeFormatInfo.CurrentInfo.GetMonthName(salaryDetail.Month) + "/" + salaryDetail.Year, new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        header.IndentationLeft = 170f;
+                        header.SpacingAfter = 30f;
+                        pdfDoc.Add(header);
+
+                        //firsttable
+                        PdfPTable FirstTable = new PdfPTable(4);
+                        FirstTable.DefaultCell.BorderWidth = 0;
+                        FirstTable.WidthPercentage = 100;
+
+                        #region MyRegion
+                        //FirstTable.AddCell("Emp ID");
+                        //FirstTable.AddCell(salaryDetail.Id.ToString());
+                        //FirstTable.AddCell("Pay Days");
+                        //FirstTable.AddCell(salaryDetail.PayableDays.ToString());
+                        //FirstTable.AddCell("DOJ");
+                        //FirstTable.AddCell("01/07/2023");
+                        //FirstTable.AddCell("Department");
+                        //FirstTable.AddCell("0");
+                        //FirstTable.AddCell("Employee Name");
+                        //FirstTable.AddCell(clientDetail.Fullname);
+                        //FirstTable.AddCell("Present Days");
+                        //FirstTable.AddCell("29.00");
+                        //FirstTable.AddCell("Designation");
+                        //FirstTable.AddCell("0");
+                        //FirstTable.AddCell("A/C No");
+                        //FirstTable.AddCell("248645748865748"); 
+                        #endregion
+
+                        header = new Paragraph("Emp ID", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Paragraph Data = new Paragraph(salaryDetail.Id.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        header = new Paragraph("Pay Days", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Data = new Paragraph(salaryDetail.PayableDays.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        header = new Paragraph("DOJ ", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Data = new Paragraph("01/07/2023", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        header = new Paragraph("Department", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Data = new Paragraph("0", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        header = new Paragraph("Employee Name", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Data = new Paragraph(clientDetail.Fullname, new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        header = new Paragraph("Present Days", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Data = new Paragraph("29.00", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        header = new Paragraph("Designation", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Data = new Paragraph("0", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        header = new Paragraph("A/C No", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(header);
+                        Data = new Paragraph("248645748865748", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        FirstTable.AddCell(Data);
+
+                        FirstTable.SpacingAfter = 12f;
+                        pdfDoc.Add(FirstTable);
+
+                        //second table
+                        PdfPTable secondTable = new PdfPTable(4);
+                        secondTable.WidthPercentage = 100;
+
+                        //1st Row
+                        header = new Paragraph("Earnings", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        secondTable.AddCell(header);
+
+                        header = new Paragraph("Amount", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        secondTable.AddCell(header);
+
+                        header = new Paragraph("Deduction ", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        secondTable.AddCell(header);
+
+                        header = new Paragraph("Amount", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        secondTable.AddCell(header);
+
+                        //2nd Row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Basic", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.Basic.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        secondTable.AddCell(cell);
+
+                        //secondTable.AddCell("Basic");
+                        //secondTable.AddCell(salaryDetail.Basic.ToString());
+                        // secondTable.AddCell("PF");
+                        //secondTable.AddCell(salaryDetail.PfOne.ToString());
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("PF", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.PfOne.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        secondTable.AddCell(cell);
+
+                        //3rd row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("HRA", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.FixedHra.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("PF", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.PfTwo.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        //  secondTable.AddCell("HRA");
+                        // secondTable.AddCell(salaryDetail.FixedHra.ToString());
+                        // secondTable.AddCell("PF");
+                        // secondTable.AddCell(salaryDetail.PfTwo.ToString());
+
+                        //4th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Conveyance", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.FixedConveyanceAllowance.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("PF_Employer", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.EmployerContPf.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        // secondTable.AddCell("Conveyance");
+                        // secondTable.AddCell(salaryDetail.FixedConveyanceAllowance.ToString());
+                        //secondTable.AddCell("PF_Employer");
+                        // secondTable.AddCell(salaryDetail.EmployerContPf.ToString());
+
+                        //5th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Medical", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.FixedMedicalAllowance.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("");
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("");
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        //secondTable.AddCell("Medical");
+                        //secondTable.AddCell(salaryDetail.FixedMedicalAllowance.ToString());
+                        //secondTable.AddCell("");
+                        //secondTable.AddCell("");
+
+                        //6th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Flexible B", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("2590.00", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("");
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("");
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        //secondTable.AddCell("Flexible B");
+                        //secondTable.AddCell("2590.00");
+                        //secondTable.AddCell("");
+                        //secondTable.AddCell("");
+
+                        //7th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("PF_Employer", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph(salaryDetail.EmployerContPf.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("");
+                        cell.AddElement(Data);
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("");
+                        cell.AddElement(Data);
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        //secondTable.AddCell("PF_Employer");
+                        //secondTable.AddCell(salaryDetail.EmployerContPf.ToString());
+                        //secondTable.AddCell("");
+                        //secondTable.AddCell("");
+
+                        //8th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Total", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        cell.AddElement(Data);
+                        secondTable.AddCell(cell);
+
+                        var total = salaryDetail.Basic + salaryDetail.FixedHra + salaryDetail.FixedConveyanceAllowance + salaryDetail.FixedMedicalAllowance + (decimal)2590.00 + salaryDetail.EmployerContPf;
+                        cell = new PdfPCell();
+                        Data = new Paragraph(total.ToString(), new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        cell.AddElement(Data);
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Total", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        cell.AddElement(Data);
+                        secondTable.AddCell(cell);
+
+                        var totalTwo = salaryDetail.PfOne + salaryDetail.PfTwo + salaryDetail.EmployerContPf;
+                        cell = new PdfPCell();
+                        Data = new Paragraph(totalTwo.ToString(), new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        cell.AddElement(Data);
+                        secondTable.AddCell(cell);
+
+                        //9th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Net", new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD));
+                        cell.AddElement(Data);
+                        cell.BorderWidthRight = 0f;
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        var net = total - totalTwo;
+                        cell = new PdfPCell();
+                        Data = new Paragraph(net.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.Colspan = 3;
+                        cell.AddElement(Data);
+                        cell.BorderWidthLeft = 0f;
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        //10th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("In Words", new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD));
+                        cell.AddElement(Data);
+                        cell.BorderWidthRight = 0f;
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        string word = NumberToWords((int)net);
+                        cell = new PdfPCell();
+                        Data = new Paragraph(word, new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        cell.Colspan = 3;
+                        cell.BorderWidthLeft = 0f;
+                        cell.BorderWidthBottom = 0f;
+                        cell.BorderWidthTop = 0f;
+                        secondTable.AddCell(cell);
+
+                        //11th row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("");
+                        cell.AddElement(Data);
+                        cell.Colspan = 3;
+                        cell.BorderWidthLeft = 1f;
+                        cell.BorderWidthBottom = 1f;
+                        cell.BorderWidthTop = 0f;
+                        cell.BorderWidthRight = 0f;
+                        secondTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Signature", new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD));
+                        cell.AddElement(Data);
+                        cell.BorderWidthBottom = 1f;
+                        cell.BorderWidthRight = 1f;
+                        cell.BorderWidthTop = 0f;
+                        cell.BorderWidthLeft = 0f;
+                        secondTable.AddCell(cell);
+
+                        secondTable.SpacingAfter = 12f;
+                        pdfDoc.Add(secondTable);
+
+
+                        PdfPTable thirdTable = new PdfPTable(7);
+
+                        thirdTable.WidthPercentage = 55;
+                        thirdTable.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                        //1st row
+                        header = new Paragraph("Lev.Type", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        thirdTable.AddCell(header);
+
+                        header = new Paragraph("Op.Bal", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        thirdTable.AddCell(header);
+
+                        header = new Paragraph("Allot.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        thirdTable.AddCell(header);
+
+                        header = new Paragraph("Avail.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        thirdTable.AddCell(header);
+
+                        header = new Paragraph("Encash.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        thirdTable.AddCell(header);
+
+                        header = new Paragraph("Adj.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        thirdTable.AddCell(header);
+
+                        header = new Paragraph("Cl.Ba.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        thirdTable.AddCell(header);
+
+                        //2nd row
+                        cell = new PdfPCell();
+                        Data = new Paragraph("Leave", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        thirdTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("0.00", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        thirdTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("1.5", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        thirdTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("0", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        thirdTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("0", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        thirdTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("0", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        thirdTable.AddCell(cell);
+
+                        cell = new PdfPCell();
+                        Data = new Paragraph("1.5", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        cell.AddElement(Data);
+                        thirdTable.AddCell(cell);
+
+                        thirdTable.SpacingAfter = 12f;
+                        pdfDoc.Add(thirdTable);
+
+                        PdfPTable fourTable = new PdfPTable(5);
+
+                        fourTable.WidthPercentage = 55;
+                        fourTable.HorizontalAlignment = Element.ALIGN_RIGHT;
+
+                        header = new Paragraph("Advance", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        fourTable.AddCell(header);
+
+                        header = new Paragraph("Taken", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        fourTable.AddCell(header);
+
+                        header = new Paragraph("Op.Bal.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        fourTable.AddCell(header);
+
+                        header = new Paragraph("EMI/Rct.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        fourTable.AddCell(header);
+
+                        header = new Paragraph("Cl.Bal.", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
+                        fourTable.AddCell(header);
+
+                        pdfDoc.Add(fourTable);
+
+                        pdfWriter.CloseStream = false;
+                        pdfDoc.Close();
+
+                        FS.Close();
+
+
+                        response.Status = true;
+                        response.Message = "pdf download successfully";
+                        response.StatusCode = System.Net.HttpStatusCode.OK;
+                    }
+                    else
+                    {
+                        response.Message = "pdf not download";
+                        response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    }
+                }
+                else
+                {
+                    response.Message = "Id is not exists";
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                }
+            }
+            catch { throw; }
+            return response;
+        }
+
+        public static string NumberToWords(int number)
+        {
+            if (number == 0)
+                return "zero";
+
+            if (number < 0)
+                return "minus " + NumberToWords(Math.Abs(number));
+
+            string words = "";
+
+            if ((number / 1000000) > 0)
+            {
+                words += NumberToWords(number / 1000000) + " million ";
+                number %= 1000000;
+            }
+
+            if ((number / 1000) > 0)
+            {
+                words += NumberToWords(number / 1000) + " thousand ";
+                number %= 1000;
+            }
+
+            if ((number / 100) > 0)
+            {
+                words += NumberToWords(number / 100) + " hundred ";
+                number %= 100;
+            }
+
+            if (number > 0)
+            {
+                if (words != "")
+                    words += "and ";
+
+                var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+                var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+                if (number < 20)
+                    words += unitsMap[number];
+                else
+                {
+                    words += tensMap[number / 10];
+                    if ((number % 10) > 0)
+                        words += "-" + unitsMap[number % 10];
+                }
+            }
+
+            return words;
+        }
+
     }
 }
