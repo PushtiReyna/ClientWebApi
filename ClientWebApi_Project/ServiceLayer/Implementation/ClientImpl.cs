@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using DTO.Client;
+using DTO.Login;
 using Helper.CommonModel;
 using Microsoft.AspNetCore.Http;
 using ServiceLayer.Interface;
@@ -41,22 +42,6 @@ namespace ServiceLayer.Implementation
         {
 
             return _clientBLL.UploadDocument(uploadDocumentReqDTO);
-        }
-
-        public CommonResponse Login(LoginReqDTO loginReqDTO)
-        {
-            return _clientBLL.Login(loginReqDTO);
-        }
-
-
-        public CommonResponse SalaryClient(SalaryClientReqDTO salaryClientReqDTO)
-        {
-            return _clientBLL.SalaryClient(salaryClientReqDTO);
-        }
-
-        public CommonResponse Refresh(RefreshReqDTO refreshReqDTO)
-        {
-            return _clientBLL.Refresh(refreshReqDTO);
         }
     }
 }

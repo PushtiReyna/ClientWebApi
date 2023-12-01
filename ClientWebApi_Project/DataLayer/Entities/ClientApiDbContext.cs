@@ -28,7 +28,7 @@ public partial class ClientApiDbContext : DbContext
     {
         modelBuilder.Entity<ClientMst>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ClientMs__3214EC07A039A7B8");
+            entity.HasKey(e => e.Id).HasName("PK__ClientMs__3214EC07C566EAD4");
 
             entity.ToTable("ClientMst");
 
@@ -73,7 +73,7 @@ public partial class ClientApiDbContext : DbContext
 
         modelBuilder.Entity<SalaryMst>(entity =>
         {
-            entity.HasKey(e => e.Salaryid).HasName("PK__SalaryMs__4BE1387F49EFED29");
+            entity.HasKey(e => e.Salaryid).HasName("PK__SalaryMs__4BE1387F70F1333C");
 
             entity.ToTable("SalaryMst");
 

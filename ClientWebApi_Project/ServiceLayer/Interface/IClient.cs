@@ -1,4 +1,5 @@
 ﻿using DTO.Client;
+using DTO.Login;
 using Helper.CommonModel;
 
 namespace ServiceLayer.Interface
@@ -13,11 +14,5 @@ namespace ServiceLayer.Interface
         public CommonResponse DeleteClient(DeleteClientReqDTO deleteClientReqDTO);
 
         public CommonResponse UploadDocument(UploadDocumentReqDTO uploadDocumentReqDTO);
-
-        public CommonResponse Login(LoginReqDTO loginReqDTO);
-
-        public CommonResponse SalaryClient(SalaryClientReqDTO salaryClientReqDTO);
-
-        public CommonResponse Refresh(RefreshReqDTO refreshReqDTO);
     }
 }

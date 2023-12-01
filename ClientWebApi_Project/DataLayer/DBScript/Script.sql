@@ -8,41 +8,64 @@ DOB datetime not null,
 Image nvarchar(400) not null,
 Username varchar(50) not null,
 Password varchar(50) not null,
+CTC  decimal(13,2) not null,
+DocumentName  nvarchar(200) null,
+Document  nvarchar(max) null,
+Token  nvarchar(500) null,
+TokenExpiryTime datetime null,
+RefreshToken  nvarchar(200) null,
+RefreshTokenExpiryTime datetime null,
 IsActive bit not null,
 IsDelete bit not null,
-CreatedBy bit not null,
+CreatedBy int not null,
 CreatedOn datetime null,
-UpdateBy bit not null,
+UpdateBy int  null,
 UpdatedOn datetime null
 )
 
-  ALTER TABLE ClientMst
-ALTER COLUMN CreatedBy Int;
+--Create Table ClientMst(
+--Id int not null identity(1,1) PRIMARY KEY,
+--Fullname varchar (200) not null,
+--Gender Varchar(50) not null,
+--DOB datetime not null,
+--Image nvarchar(400) not null,
+--Username varchar(50) not null,
+--Password varchar(50) not null,
+--IsActive bit not null,
+--IsDelete bit not null,
+--CreatedBy bit not null,
+--CreatedOn datetime null,
+--UpdateBy bit not null,
+--UpdatedOn datetime null
+--)
 
-  ALTER TABLE ClientMst
-ALTER COLUMN UpdateBy Int;
+--  ALTER TABLE ClientMst
+--ALTER COLUMN CreatedBy Int;
 
- alter table ClientMst
-  add  RefreshToken  nvarchar(200)
+--  ALTER TABLE ClientMst
+--ALTER COLUMN UpdateBy Int;
 
- alter table ClientMst
-  add  RefreshTokenExpiryTime datetime 
+-- alter table ClientMst
+--  add  RefreshToken  nvarchar(200)
 
-     alter table ClientMst
-  add  Token  nvarchar(500)
+-- alter table ClientMst
+--  add  RefreshTokenExpiryTime datetime 
 
- alter table ClientMst
-  add  TokenExpiryTime datetime 
+--     alter table ClientMst
+--  add  Token  nvarchar(500)
+
+-- alter table ClientMst
+--  add  TokenExpiryTime datetime 
 
   
-   alter table ClientMst
-  add  DocumentName  nvarchar(200)
+--   alter table ClientMst
+--  add  DocumentName  nvarchar(200)
 
-   alter table ClientMst
-  add  Document  nvarchar(max)
+--   alter table ClientMst
+--  add  Document  nvarchar(max)
 
-         alter table ClientMst
-  add  CTC  decimal(13,2)
+--         alter table ClientMst
+--  add  CTC  decimal(13,2)
 
 
 Create Table SalaryMst(

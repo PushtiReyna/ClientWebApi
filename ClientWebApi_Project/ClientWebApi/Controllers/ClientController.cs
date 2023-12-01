@@ -1,11 +1,13 @@
-﻿using ClientWebApi.ViewModel;
-using DTO.Client;
+﻿using DTO.Client;
 using Helper.CommonModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interface;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using ClientWebApi.ViewModel.Login;
+using DTO.Login;
+using ClientWebApi.ViewModel.Client;
 
 namespace ClientWebApi.Controllers
 {
@@ -115,54 +117,6 @@ namespace ClientWebApi.Controllers
         //    return response;
         //} 
         #endregion
-
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Login")]
-        public CommonResponse Login(LoginReqViewModel loginReqViewModel)
-        {
-            CommonResponse response = new CommonResponse();
-            try
-            {
-                response = _client.Login(loginReqViewModel.Adapt<LoginReqDTO>());
-                LoginResDTO loginResDTO = response.Data;
-                response.Data = loginResDTO.Adapt<LoginResViewModel>(); 
-            }
-            catch { throw; }
-            return response;
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Refresh")]
-        public CommonResponse Refresh(RefreshReqViewModel refreshReqViewModel)
-        {
-            CommonResponse response = new CommonResponse();
-            try
-            {
-                response = _client.Refresh(refreshReqViewModel.Adapt<RefreshReqDTO>());
-                RefreshResDTO refreshResDTO = response.Data;
-                response.Data = refreshResDTO.Adapt<RefreshResViewModel>();
-              
-            }
-            catch { throw; }
-            return response;
-        }
-
-        [HttpPost]
-        [Route("SalaryClient")]
-        public CommonResponse SalaryClient(SalaryClientReqViewModel salaryClientReqViewModel)
-        {
-            CommonResponse response = new CommonResponse();
-            try
-            {
-                response = _client.SalaryClient(salaryClientReqViewModel.Adapt<SalaryClientReqDTO>());
-                SalaryClientResDTO salaryClientReqDTO = response.Data;
-                response.Data = salaryClientReqDTO.Adapt<SalaryClientResViewModel>();
-            }
-            catch { throw; }
-            return response;
-        }
 
     }
 }
