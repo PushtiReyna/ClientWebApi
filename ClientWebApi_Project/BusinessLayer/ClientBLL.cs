@@ -82,6 +82,8 @@ namespace BusinessLayer
                     clientMst.Password = addClientReqDTO.Password.Trim();
                     clientMst.Image = filename;
                     clientMst.Ctc = (decimal)addClientReqDTO.Ctc;
+                    clientMst.JoiningDate = addClientReqDTO.JoiningDate;
+                    clientMst.ProbationPeriod = addClientReqDTO.ProbationPeriod;
                     clientMst.CreatedBy = 1;
                     clientMst.IsActive = true;
                     clientMst.CreatedOn = DateTime.Now;

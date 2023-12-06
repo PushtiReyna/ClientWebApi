@@ -23,6 +23,12 @@ UpdateBy int  null,
 UpdatedOn datetime null
 )
 
+Alter Table ClientMst
+  add  Joining_Date datetime  null;
+
+  Alter Table ClientMst
+  add  Probation_Period int  null;
+
 --Create Table ClientMst(
 --Id int not null identity(1,1) PRIMARY KEY,
 --Fullname varchar (200) not null,
@@ -104,6 +110,22 @@ CreatedBy int not null,
 CreatedOn datetime null,
 UpdateBy bit not null,
 UpdatedOn datetime null
+)
+
+create table LeaveMst
+(
+LeaveId int not null identity(1,1) PRIMARY KEY,
+Id int not null,
+Month int not null,
+Year int not null,
+Opening_Leave_Balance DECIMAL(10, 2)  not null,
+Closing_Leave_Balance DECIMAL(10, 2) not null,
+Earned_Leave DECIMAL(3, 2)  null,
+Casual_Leave DECIMAL(3, 2)  null,
+Seek_Leave DECIMAL(3, 2) null,
+Total_Leaves_Taken  DECIMAL(3, 2) not null,
+Leave_Balance DECIMAL(10, 2) not null,
+Month_Leave DECIMAL(3, 2) not null
 )
 
 --  Create Table DocumentMst(

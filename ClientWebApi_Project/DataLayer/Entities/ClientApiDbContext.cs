@@ -19,6 +19,8 @@ public partial class ClientApiDbContext : DbContext
 
     public virtual DbSet<DocumentMst> DocumentMsts { get; set; }
 
+    public virtual DbSet<LeaveMst> LeaveMsts { get; set; }
+
     public virtual DbSet<SalaryMst> SalaryMsts { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -47,9 +49,13 @@ public partial class ClientApiDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Image).HasMaxLength(400);
+            entity.Property(e => e.JoiningDate)
+                .HasColumnType("datetime")
+                .HasColumnName("Joining_Date");
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.ProbationPeriod).HasColumnName("Probation_Period");
             entity.Property(e => e.RefreshToken).HasMaxLength(200);
             entity.Property(e => e.RefreshTokenExpiryTime).HasColumnType("datetime");
             entity.Property(e => e.Token).HasMaxLength(500);
@@ -69,6 +75,38 @@ public partial class ClientApiDbContext : DbContext
             entity.Property(e => e.CreatedOn).HasColumnType("datetime");
             entity.Property(e => e.DocumentName).HasMaxLength(200);
             entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<LeaveMst>(entity =>
+        {
+            entity.HasKey(e => e.LeaveId).HasName("PK__LeaveMst__796DB9590CC68F96");
+
+            entity.ToTable("LeaveMst");
+
+            entity.Property(e => e.CasualLeave)
+                .HasColumnType("decimal(3, 2)")
+                .HasColumnName("Casual_Leave");
+            entity.Property(e => e.ClosingLeaveBalance)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("Closing_Leave_Balance");
+            entity.Property(e => e.EarnedLeave)
+                .HasColumnType("decimal(3, 2)")
+                .HasColumnName("Earned_Leave");
+            entity.Property(e => e.LeaveBalance)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("Leave_Balance");
+            entity.Property(e => e.MonthLeave)
+                .HasColumnType("decimal(3, 2)")
+                .HasColumnName("Month_Leave");
+            entity.Property(e => e.OpeningLeaveBalance)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("Opening_Leave_Balance");
+            entity.Property(e => e.SeekLeave)
+                .HasColumnType("decimal(3, 2)")
+                .HasColumnName("Seek_Leave");
+            entity.Property(e => e.TotalLeavesTaken)
+                .HasColumnType("decimal(3, 2)")
+                .HasColumnName("Total_Leaves_Taken");
         });
 
         modelBuilder.Entity<SalaryMst>(entity =>

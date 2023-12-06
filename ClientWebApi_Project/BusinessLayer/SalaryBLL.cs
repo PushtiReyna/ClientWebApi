@@ -3,16 +3,10 @@ using DTO.Salary;
 using Helper.CommonModel;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Metadata;
 using Document = iTextSharp.text.Document;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 using System.Globalization;
+
 
 namespace BusinessLayer
 {
@@ -23,8 +17,6 @@ namespace BusinessLayer
         {
             _db = db;
         }
-
-        //take filed employeeid month and year
 
         public CommonResponse SalaryClient(SalaryClientReqDTO salaryClientReqDTO)
         {
@@ -194,7 +186,7 @@ namespace BusinessLayer
             CommonResponse response = new CommonResponse();
             try
             {
-                var salaryDetail = _db.SalaryMsts.FirstOrDefault(x => x.Salaryid == downloadSalaryReqDTO.Salaryid);
+                var salaryDetail = _db.SalaryMsts.FirstOrDefault(x => x.Id == downloadSalaryReqDTO.UserId && x.Month == downloadSalaryReqDTO.Month && x.Year == downloadSalaryReqDTO.Year);
                 if (salaryDetail != null)
                 {
                     var clientDetail = _db.ClientMsts.FirstOrDefault(x => x.Id == salaryDetail.Id);
@@ -214,6 +206,36 @@ namespace BusinessLayer
 
                         PdfPCell cell = new PdfPCell();
 
+                        //Image
+                        PdfPTable HeaderPlot = new PdfPTable(new float[] { 10F });
+                        string path = "C:\\Users\\Reyna\\Pictures\\Saved Pictures\\book5.jfif";
+                        FileInfo f2 = new FileInfo(path);
+                        FileStream fs = new FileStream(f2.FullName,FileMode.Open, FileAccess.Read);
+                        BinaryReader rdr = new BinaryReader(fs);
+                        byte[] fileData = rdr.ReadBytes((int)fs.Length);
+
+                        Image image = Image.GetInstance(fileData);
+                        image.ScaleAbsolute(50, 50); //adjusting image size
+                        image.Alignment = Element.ALIGN_CENTER;
+                        cell = new PdfPCell(image)
+                        {
+                            Border = 0,
+                            HorizontalAlignment = Element.ALIGN_TOP,
+                            VerticalAlignment = Element.ALIGN_TOP
+                        };
+                        HeaderPlot.AddCell(cell);
+                        Font font = FontFactory.GetFont("Calibri Light", 8f, Font.NORMAL,iTextSharp.text.BaseColor.BLACK);//Initializing font
+                        cell = new PdfPCell(new Phrase("202/401, Iscon Atria 2, Opp GET, Gotri, Vadodara-390021", font))
+                        {
+                            Border = 0,
+                            HorizontalAlignment = Element.ALIGN_RIGHT,
+                            VerticalAlignment = Element.ALIGN_TOP
+                        };
+                        HeaderPlot.AddCell(cell);
+                        pdfDoc.Add(HeaderPlot);
+                        HeaderPlot.WriteSelectedRows(0, -1, pdfDoc.Left + 40, pdfDoc.Top - 835, pdfWriter.DirectContent);
+
+
                         //name and address
                         Paragraph header = new Paragraph("Reyna Solutions LLP", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
                         header.SpacingBefore = 10f;
@@ -226,8 +248,8 @@ namespace BusinessLayer
 
                         //DateTimeFormatInfo.CurrentInfo.GetMonthName(salaryDetail.Month)
 
-                        header = new Paragraph("Pay Slip for the month of" + "" + DateTimeFormatInfo.CurrentInfo.GetMonthName(salaryDetail.Month) + "/" + salaryDetail.Year, new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
-                        header.IndentationLeft = 170f;
+                        header = new Paragraph("Pay Slip for the month of" + " " + DateTimeFormatInfo.CurrentInfo.GetMonthName(salaryDetail.Month) + "/" + salaryDetail.Year, new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
+                        header.IndentationLeft = 160f;
                         header.SpacingAfter = 30f;
                         pdfDoc.Add(header);
 
@@ -303,29 +325,48 @@ namespace BusinessLayer
                         secondTable.WidthPercentage = 100;
 
                         //1st Row
+                        cell = new PdfPCell();
                         header = new Paragraph("Earnings", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
-                        secondTable.AddCell(header);
+                        cell.AddElement(header);
+                        cell.PaddingLeft = 30f;
+                        cell.PaddingRight = 20f;
+                        secondTable.AddCell(cell);
 
+                        cell = new PdfPCell();
                         header = new Paragraph("Amount", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
-                        secondTable.AddCell(header);
+                        cell.AddElement(header);
+                        cell.PaddingLeft = 30f;
+                        cell.PaddingRight = 20f;
+                        secondTable.AddCell(cell);
 
+                        cell = new PdfPCell();
                         header = new Paragraph("Deduction ", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
-                        secondTable.AddCell(header);
+                        cell.AddElement(header);
+                        cell.PaddingLeft = 30f;
+                        cell.PaddingRight = 20f;
+                        secondTable.AddCell(cell);
 
+                        cell = new PdfPCell();
                         header = new Paragraph("Amount", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
-                        secondTable.AddCell(header);
+                        cell.AddElement(header);
+                        cell.PaddingLeft = 30f;
+                        cell.PaddingRight = 20f;
+                        secondTable.AddCell(cell);
 
                         //2nd Row
                         cell = new PdfPCell();
                         Data = new Paragraph("Basic", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
                         Data = new Paragraph(salaryDetail.Basic.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
+                        cell.PaddingLeft = 90f;
+                        cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                         secondTable.AddCell(cell);
 
                         //secondTable.AddCell("Basic");
@@ -337,12 +378,14 @@ namespace BusinessLayer
                         Data = new Paragraph("PF", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
                         Data = new Paragraph(salaryDetail.PfOne.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         //3rd row
@@ -351,6 +394,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -358,6 +402,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -365,6 +410,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -372,6 +418,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         //  secondTable.AddCell("HRA");
@@ -385,6 +432,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -392,6 +440,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -399,6 +448,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -406,6 +456,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         // secondTable.AddCell("Conveyance");
@@ -419,6 +470,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -426,6 +478,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -433,6 +486,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -440,6 +494,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         //secondTable.AddCell("Medical");
@@ -453,6 +508,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -460,6 +516,7 @@ namespace BusinessLayer
                         cell.AddElement(Data);
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -486,24 +543,34 @@ namespace BusinessLayer
                         Data = new Paragraph("PF_Employer", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
                         cell.AddElement(Data);
                         cell.BorderWidthTop = 0f;
+                        cell.BorderWidthBottom = 0f;
+                        cell.PaddingLeft = 10f;
+                        cell.PaddingBottom = 40f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
                         Data = new Paragraph(salaryDetail.EmployerContPf.ToString(), new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL));
                         cell.AddElement(Data);
                         cell.BorderWidthTop = 0f;
+                        cell.BorderWidthBottom = 0f;
+                        cell.PaddingBottom = 40f;
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
                         Data = new Paragraph("");
                         cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingBottom = 40f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
                         Data = new Paragraph("");
                         cell.AddElement(Data);
+                        cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingBottom = 40f;
                         secondTable.AddCell(cell);
 
                         //secondTable.AddCell("PF_Employer");
@@ -515,23 +582,27 @@ namespace BusinessLayer
                         cell = new PdfPCell();
                         Data = new Paragraph("Total", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
                         cell.AddElement(Data);
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         var total = salaryDetail.Basic + salaryDetail.FixedHra + salaryDetail.FixedConveyanceAllowance + salaryDetail.FixedMedicalAllowance + (decimal)2590.00 + salaryDetail.EmployerContPf;
                         cell = new PdfPCell();
                         Data = new Paragraph(total.ToString(), new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
                         cell.AddElement(Data);
+                        cell.PaddingLeft = 70f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
                         Data = new Paragraph("Total", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
                         cell.AddElement(Data);
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         var totalTwo = salaryDetail.PfOne + salaryDetail.PfTwo + salaryDetail.EmployerContPf;
                         cell = new PdfPCell();
                         Data = new Paragraph(totalTwo.ToString(), new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD));
                         cell.AddElement(Data);
+                        cell.PaddingLeft = 90f;
                         secondTable.AddCell(cell);
 
                         //9th row
@@ -541,6 +612,7 @@ namespace BusinessLayer
                         cell.BorderWidthRight = 0f;
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         var net = total - totalTwo;
@@ -560,6 +632,7 @@ namespace BusinessLayer
                         cell.BorderWidthRight = 0f;
                         cell.BorderWidthBottom = 0f;
                         cell.BorderWidthTop = 0f;
+                        cell.PaddingLeft = 10f;
                         secondTable.AddCell(cell);
 
                         string word = NumberToWords((int)net);
@@ -581,6 +654,7 @@ namespace BusinessLayer
                         cell.BorderWidthBottom = 1f;
                         cell.BorderWidthTop = 0f;
                         cell.BorderWidthRight = 0f;
+                        cell.PaddingBottom = 10f;
                         secondTable.AddCell(cell);
 
                         cell = new PdfPCell();
@@ -590,6 +664,8 @@ namespace BusinessLayer
                         cell.BorderWidthRight = 1f;
                         cell.BorderWidthTop = 0f;
                         cell.BorderWidthLeft = 0f;
+                        cell.PaddingLeft = 10f;
+                        cell.PaddingBottom = 10f;
                         secondTable.AddCell(cell);
 
                         secondTable.SpacingAfter = 12f;
@@ -689,7 +765,10 @@ namespace BusinessLayer
 
                         FS.Close();
 
+                        DownloadSalaryResDTO downloadSalaryResDTO = new DownloadSalaryResDTO();
+                        downloadSalaryResDTO.UserId = clientDetail.Id;
 
+                        response.Data = downloadSalaryResDTO;
                         response.Status = true;
                         response.Message = "pdf download successfully";
                         response.StatusCode = System.Net.HttpStatusCode.OK;
@@ -702,7 +781,7 @@ namespace BusinessLayer
                 }
                 else
                 {
-                    response.Message = "Id is not exists";
+                    response.Message = "user detail is not exists";
                     response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
             }

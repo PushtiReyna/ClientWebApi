@@ -50,6 +50,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            },
+            "ExcelDataReader": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
             "Mapster": {
               "target": "Package",
               "version": "[7.4.0, )"
@@ -57,6 +65,10 @@
             "Microsoft.AspNetCore.Hosting.Abstractions": {
               "target": "Package",
               "version": "[2.2.0, )"
+            },
+            "Microsoft.Office.Excel": {
+              "target": "Package",
+              "version": "[14.0.4760.1000, )"
             },
             "iTextSharp": {
               "target": "Package",

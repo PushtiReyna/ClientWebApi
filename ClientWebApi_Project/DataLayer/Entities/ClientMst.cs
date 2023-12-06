@@ -44,4 +44,8 @@ public partial class ClientMst
     public int? UpdateBy { get; set; }
 
     public DateTime? UpdatedOn { get; set; }
+
+    public DateTime? JoiningDate { get; set; }
+
+    public int? ProbationPeriod { get; set; }
 }

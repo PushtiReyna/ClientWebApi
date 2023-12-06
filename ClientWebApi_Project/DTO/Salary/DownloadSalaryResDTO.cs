@@ -8,5 +8,6 @@ namespace DTO.Salary
 {
     public class DownloadSalaryResDTO
     {
+        public int UserId { get; set; }
     }
 }

@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="7.0.2" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Office.Excel" Version="14.0.4760.1000" />
   </ItemGroup>
 
   <ItemGroup>

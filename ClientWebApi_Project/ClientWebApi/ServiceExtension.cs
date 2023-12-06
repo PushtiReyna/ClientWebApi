@@ -16,6 +16,9 @@ namespace ClientWebApi
 
             service.AddScoped<ILogin, LoginImpl>();
             service.AddScoped<LoginBLL>();
+
+            service.AddScoped<IExcel, ExcelImpl>();
+            service.AddScoped<ExcelBLL>();
         }
     }
 }

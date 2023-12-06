@@ -25,5 +25,8 @@ namespace DTO.Client
         public string Password { get; set; } = null!;
 
         public decimal? Ctc { get; set; }
+        public DateTime? JoiningDate { get; set; }
+
+        public int? ProbationPeriod { get; set; }
     }
 }

@@ -8,6 +8,10 @@ namespace DTO.Salary
 {
     public class DownloadSalaryReqDTO
     {
-        public int Salaryid { get; set; }
+        public int UserId { get; set; }
+
+        public int Month { get; set; }
+
+        public int Year { get; set; }
     }
 }

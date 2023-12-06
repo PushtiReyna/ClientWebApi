@@ -37,7 +37,7 @@ namespace ClientWebApi.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("DownloadSalary")]
         public CommonResponse DownloadSalary(DownloadSalaryReqViewModel downloadSalaryReqViewModel)
         {

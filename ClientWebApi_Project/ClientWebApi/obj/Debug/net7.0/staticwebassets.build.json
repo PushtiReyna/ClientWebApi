@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fVrEkXvSU4sI99Bhfk3w6RP81u6caeOy6qN9oVpkxks=",
+  "Hash": "K14GdRU639qWAYs8jDGZyhCxa5gnttn5ALYD1kTS8vU=",
   "Source": "ClientWebApi",
   "BasePath": "_content/ClientWebApi",
   "Mode": "Default",
@@ -205,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\book1.jfif"
+    },
+    {
+      "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\book2.jfif",
+      "SourceId": "ClientWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\",
+      "BasePath": "_content/ClientWebApi",
+      "RelativePath": "Images/book2.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\book2.jfif"
     },
     {
       "Identity": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ClientWebApi\\wwwroot\\Images\\book3.jfif",
