@@ -1,0 +1,5 @@
+Scaffold-DbContext "Server=ARCHE-ITD440\SQLEXPRESS;Database=ClientApiDB;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities
+
+Scaffold-DbContext "Server=ARCHE-ITD440\SQLEXPRESS;Database=ClientApiDB;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Table ClientMst -Force
+
+Scaffold-DbContext "Server=ARCHE-ITD440\SQLEXPRESS;Database=ClientApiDB;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Force

@@ -28,4 +28,6 @@ public partial class LeaveMst
     public decimal LeaveBalance { get; set; }
 
     public decimal MonthLeave { get; set; }
+
+    public decimal? LossOfPayLeave { get; set; }
 }

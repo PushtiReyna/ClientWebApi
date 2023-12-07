@@ -73,7 +73,7 @@ BEGIN
 			CreatedOn datetime null,
 			UpdateBy bit not null,
 			UpdatedOn datetime null
-			)
+			);
 	PRINT 'SalaryMst Table Created' 
 END
 ELSE
@@ -91,14 +91,14 @@ BEGIN
 			Year int not null,
 			Opening_Leave_Balance DECIMAL(10, 2)  not null,
 			Closing_Leave_Balance DECIMAL(10, 2) not null,
-			Earned_Leave DECIMAL(3, 2)  null,
-			Casual_Leave DECIMAL(3, 2)  null,
-			Seek_Leave DECIMAL(3, 2) null,
-			Total_Leaves_Taken  DECIMAL(3, 2) not null,
+			Earned_Leave DECIMAL(10, 2)  null,
+			Casual_Leave DECIMAL(10, 2)  null,
+			Seek_Leave DECIMAL(10, 2) null,
+			Total_Leaves_Taken  DECIMAL(10, 2) not null,
 			Leave_Balance DECIMAL(10, 2) not null,
-			Month_Leave DECIMAL(3, 2) not null,
-			Loss_Of_Pay_Leave  DECIMAL(3, 2) null
-			)
+			Month_Leave DECIMAL(10, 2) not null,
+			Loss_Of_Pay_Leave  DECIMAL(10, 2) null
+			);
 	PRINT 'LeaveMst Table Created' 
 END
 ELSE
@@ -115,7 +115,7 @@ BEGIN
 			Date_Attendance datetime not null,
 			Types_Of_Leave  varchar(max) not null,
 			Present_Absent varchar(max) not null
-			)
+			);
 	PRINT 'AttendanceMst Table Created' 
 END
 ELSE

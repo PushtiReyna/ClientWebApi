@@ -40,12 +40,12 @@ namespace BusinessLayer
                         {
                             LeaveMst leaveMst = new LeaveMst();
 
-                            var clientMst = _db.ClientMsts.FirstOrDefault(x => x.Fullname == worksheet.Cells[rowIterator, 2].Value.ToString());
+                            var clientDetail = _db.ClientMsts.FirstOrDefault(x => x.Fullname == worksheet.Cells[rowIterator, 2].Value.ToString());
 
-                            if (clientMst != null)
+                            if (clientDetail != null)
                             {
 
-                                leaveMst.Id = clientMst.Id;
+                                leaveMst.Id = clientDetail.Id;
 
                                 leaveMst.Month = DateTime.Now.Month;
                                 leaveMst.Year = DateTime.Now.Year;
@@ -80,6 +80,7 @@ namespace BusinessLayer
                                 leaveMst.LeaveBalance = Convert.ToDecimal(worksheet.Cells[rowIterator, 60].Value);
                                 leaveMst.ClosingLeaveBalance = leaveMst.LeaveBalance;
                                 leaveMst.MonthLeave = Convert.ToDecimal(0);
+                                leaveMst.LossOfPayLeave = Convert.ToDecimal(0);
                                 leaveList.Add(leaveMst);
 
                                 //_db.LeaveMsts.AddRange(leaveList);
@@ -202,10 +203,10 @@ namespace BusinessLayer
             CommonResponse response = new CommonResponse();
             try
             {
-                var leaveMsts = _db.LeaveMsts.Where(x => x.OpeningLeaveBalance >= 0 && x.MonthLeave == 0 && x.Month == DateTime.Now.Month && x.Year == DateTime.Now.Year).ToList();
-                if(leaveMsts.Count > 0)
+                var leaveDetailList = _db.LeaveMsts.Where(x => x.OpeningLeaveBalance >= 0 && x.MonthLeave == 0 && x.Month == DateTime.Now.Month && x.Year == DateTime.Now.Year).ToList();
+                if(leaveDetailList.Count > 0)
                 {
-                    foreach (var employee in leaveMsts)
+                    foreach (var employee in leaveDetailList)
                     {
                         employee.MonthLeave = Convert.ToDecimal(1.5);
                         employee.ClosingLeaveBalance = employee.ClosingLeaveBalance + employee.MonthLeave;

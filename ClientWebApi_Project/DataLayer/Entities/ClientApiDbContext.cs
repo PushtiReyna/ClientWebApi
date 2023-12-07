@@ -15,6 +15,8 @@ public partial class ClientApiDbContext : DbContext
     {
     }
 
+    public virtual DbSet<AttendanceMst> AttendanceMsts { get; set; }
+
     public virtual DbSet<ClientMst> ClientMsts { get; set; }
 
     public virtual DbSet<DocumentMst> DocumentMsts { get; set; }
@@ -23,11 +25,29 @@ public partial class ClientApiDbContext : DbContext
 
     public virtual DbSet<SalaryMst> SalaryMsts { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseSqlServer("Server=ARCHE-ITD440\\SQLEXPRESS;Database=ClientApiDB;Trusted_Connection=True;TrustServerCertificate=True;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=ARCHE-ITD440\\SQLEXPRESS;Database=ClientApiDB;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AttendanceMst>(entity =>
+        {
+            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__8B69261CA0369209");
+
+            entity.ToTable("AttendanceMst");
+
+            entity.Property(e => e.DateAttendance)
+                .HasColumnType("datetime")
+                .HasColumnName("Date_Attendance");
+            entity.Property(e => e.PresentAbsent)
+                .IsUnicode(false)
+                .HasColumnName("Present_Absent");
+            entity.Property(e => e.TypesOfLeave)
+                .IsUnicode(false)
+                .HasColumnName("Types_Of_Leave");
+        });
+
         modelBuilder.Entity<ClientMst>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__ClientMs__3214EC07C566EAD4");
@@ -79,33 +99,36 @@ public partial class ClientApiDbContext : DbContext
 
         modelBuilder.Entity<LeaveMst>(entity =>
         {
-            entity.HasKey(e => e.LeaveId).HasName("PK__LeaveMst__796DB9590CC68F96");
+            entity.HasKey(e => e.LeaveId).HasName("PK__LeaveMst__796DB9596CD45CC3");
 
             entity.ToTable("LeaveMst");
 
             entity.Property(e => e.CasualLeave)
-                .HasColumnType("decimal(3, 2)")
+                .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Casual_Leave");
             entity.Property(e => e.ClosingLeaveBalance)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Closing_Leave_Balance");
             entity.Property(e => e.EarnedLeave)
-                .HasColumnType("decimal(3, 2)")
+                .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Earned_Leave");
             entity.Property(e => e.LeaveBalance)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Leave_Balance");
+            entity.Property(e => e.LossOfPayLeave)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("Loss_Of_Pay_Leave");
             entity.Property(e => e.MonthLeave)
-                .HasColumnType("decimal(3, 2)")
+                .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Month_Leave");
             entity.Property(e => e.OpeningLeaveBalance)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Opening_Leave_Balance");
             entity.Property(e => e.SeekLeave)
-                .HasColumnType("decimal(3, 2)")
+                .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Seek_Leave");
             entity.Property(e => e.TotalLeavesTaken)
-                .HasColumnType("decimal(3, 2)")
+                .HasColumnType("decimal(10, 2)")
                 .HasColumnName("Total_Leaves_Taken");
         });
 

@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace Helper.CommonModel
 {
+    public enum LeaveType
+    {
+        Earned_Leave_Full_Day,
+        Earned_Leave_Half_Day,
+        Casual_Leave_Full_Day,
+        Casual_Leave_Half_Day,
+        Seek_Leave_Full_Day,
+        Seek_Leave_Half_Day,
+        Loss_Of_Pay_Leave_Full_Day,
+        Loss_Of_Pay_Leave_Half_Day
+    }
+
     public class CommonResponse
     {
         public bool Status { get; set; } = false;
