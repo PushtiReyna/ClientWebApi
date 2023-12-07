@@ -80,20 +80,23 @@ namespace BusinessLayer
                                 leaveMst.LeaveBalance = Convert.ToDecimal(worksheet.Cells[rowIterator, 60].Value);
                                 leaveMst.ClosingLeaveBalance = leaveMst.LeaveBalance;
                                 leaveMst.MonthLeave = Convert.ToDecimal(0);
-                                //leaveList.Add(leaveMst);
+                                leaveList.Add(leaveMst);
 
-
-                                _db.LeaveMsts.Add(leaveMst);
-                                _db.SaveChanges();
+                                //_db.LeaveMsts.AddRange(leaveList);
+                                //_db.SaveChanges();
+                                //response.Status = true;
+                                //response.Message = "success!";
+                                //response.StatusCode = System.Net.HttpStatusCode.OK;
                             }
                             else
                             {
-
                                 response.Message = "username not match!";
                                 response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                                return response;
                             }
                         }
-
+                        _db.LeaveMsts.AddRange(leaveList);
+                        _db.SaveChanges();
                         response.Status = true;
                         response.Message = "success!";
                         response.StatusCode = System.Net.HttpStatusCode.OK;
@@ -159,8 +162,6 @@ namespace BusinessLayer
                 //_db.LeaveMsts.AddRange(leaveList);
                 //_db.SaveChanges(); 
                 #endregion
-
-
                 #region MyRegion
                 //using (var stream = new MemoryStream())
                 //{
