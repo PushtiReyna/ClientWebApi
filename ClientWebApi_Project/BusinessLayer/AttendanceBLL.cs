@@ -26,11 +26,11 @@ namespace BusinessLayer
             {
                 AttendanceResDTO attendanceResDTO = new AttendanceResDTO();
                 var clientDetail = _db.ClientMsts.FirstOrDefault(x => x.Id == attendanceReqDTO.Id );
-                var leaveDetail = _db.LeaveMsts.FirstOrDefault(x => x.Id == attendanceReqDTO.Id);
+                var leaveDetail = _db.LeaveMsts.FirstOrDefault(x => x.Id == attendanceReqDTO.Id && x.Month == attendanceReqDTO.DateAttendance.Month);
 
-                //var attendanceDetail = _db.AttendanceMsts.Where(x => x.DateAttendance == attendanceReqDTO.DateAttendance && x.Id == attendanceReqDTO.Id).ToList();
-               // if (attendanceDetail.Count <= 0)
-              //  {
+                var attendanceDetail = _db.AttendanceMsts.Where(x => x.DateAttendance == attendanceReqDTO.DateAttendance && x.Id == attendanceReqDTO.Id).ToList();
+               if (attendanceDetail.Count <= 0)
+                {
                     if (clientDetail != null && leaveDetail != null)
                     {
                         AttendanceMst attendanceMst = new AttendanceMst();
@@ -123,12 +123,12 @@ namespace BusinessLayer
                         response.Message = "user id is not exists";
                         response.StatusCode = System.Net.HttpStatusCode.BadGateway;
                     }
-                //}
-                //else
-                //{
-                //    response.Message = "Alreday added data for this date";
-                //    response.StatusCode = System.Net.HttpStatusCode.BadGateway;
-                //}
+                }
+                else
+                {
+                    response.Message = "Alreday added data for this date";
+                    response.StatusCode = System.Net.HttpStatusCode.BadGateway;
+                }
             }
             catch { throw; }
             return response;

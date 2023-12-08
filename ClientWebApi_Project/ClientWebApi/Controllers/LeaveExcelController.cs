@@ -36,7 +36,7 @@ namespace ClientWebApi.Controllers
             return response;
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("EarnedMonthlyLeave")]
         public CommonResponse EarnedMonthlyLeave()
         {
