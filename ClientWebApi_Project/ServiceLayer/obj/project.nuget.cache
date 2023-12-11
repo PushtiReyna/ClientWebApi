@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "z1YrNkCxO71zG0GKzLMmitLazbhimpy5hQiTI+HfDJ1TNbd+PVRbghvGHlmBSXZ2tL2qKw1iaS/crqAVl56XTQ==",
+  "dgSpecHash": "YIXoH3UQJyFZmvU5D2WRRaO7voTzN88vR+NGhC0BzuTgagw1NXXp+y5rQq1lCWhr5+0XiUnOyqasOo29VLG34w==",
   "success": true,
   "projectFilePath": "D:\\project\\ClientWebApi\\ClientWebApi\\ClientWebApi_Project\\ServiceLayer\\ServiceLayer.csproj",
   "expectedPackageFiles": [
@@ -57,6 +57,7 @@
     "C:\\Users\\Reyna\\.nuget\\packages\\microsoft.office.excel\\14.0.4760.1000\\microsoft.office.excel.14.0.4760.1000.nupkg.sha512",
     "C:\\Users\\Reyna\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Reyna\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\Reyna\\.nuget\\packages\\quartz\\3.8.0\\quartz.3.8.0.nupkg.sha512",
     "C:\\Users\\Reyna\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Reyna\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\Reyna\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",

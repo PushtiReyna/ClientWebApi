@@ -70,6 +70,10 @@
               "target": "Package",
               "version": "[14.0.4760.1000, )"
             },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
             "iTextSharp": {
               "target": "Package",
               "version": "[5.5.13.3, )"
@@ -162,6 +166,14 @@
               "target": "Package",
               "version": "[7.0.13, )"
             },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
+            "Quartz.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -169,6 +181,10 @@
             "Swashbuckle.AspNetCore.SwaggerUI": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "System.Reactive": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             }
           },
           "imports": [

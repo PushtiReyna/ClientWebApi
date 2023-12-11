@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Bcpg;
+using Quartz;
 using System;
 using System.Data;
 using System.IO;
@@ -17,7 +18,7 @@ using System.Xml;
 
 namespace BusinessLayer
 {
-    public class ExcelBLL
+    public class ExcelBLL 
     {
         public readonly ClientApiDbContext _db;
         public ExcelBLL(ClientApiDbContext db)
@@ -190,8 +191,8 @@ namespace BusinessLayer
             {
                 //&& x.Month == DateTime.Now.Month - 1 && x.Year == DateTime.Now.Year
 
-                var leaveDetailList = _db.LeaveMsts.Where(x => x.OpeningLeaveBalance >= 0 && x.MonthLeave == 0 ).ToList();
-                var List2 = _db.LeaveMsts.Where( x => x.MonthLeave != 0 && (x.Month == DateTime.Now.Month - 1 || x.Month == DateTime.Now.Month - 2)).ToList();
+                var leaveDetailList = _db.LeaveMsts.Where(x => x.OpeningLeaveBalance >= 0 && x.MonthLeave == 0).ToList();
+                var List2 = _db.LeaveMsts.Where(x => x.MonthLeave != 0 && (x.Month == DateTime.Now.Month - 1 /*|| x.Month == DateTime.Now.Month - 2*/)).ToList();
                 if (leaveDetailList.Count > 0)
                 {
                     var leaveList = new List<LeaveMst>();
@@ -207,9 +208,10 @@ namespace BusinessLayer
                     response.Status = true;
                     response.Message = "updated successfully!";
                     response.StatusCode = System.Net.HttpStatusCode.OK;
+                    return response;
                 }
-                else
-                {
+                else if (List2.Count > 0)
+                { 
                     var leaveList = new List<LeaveMst>();
                     foreach (var employee in List2)
                     {
@@ -229,11 +231,45 @@ namespace BusinessLayer
                     _db.LeaveMsts.AddRange(leaveList);
                     _db.SaveChanges();
                     response.Message = "new data added";
+                    response.StatusCode = System.Net.HttpStatusCode.OK;
+                }
+                else
+                {
+                    response.Message = "not data updated not new data added";
                     response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
             }
             catch { throw; }
             return response;
         }
+
+        //public Task Execute(IJobExecutionContext context)
+        //{
+        //    return EarnedMonthlyLeave();
+        //}
+
+
+        //public Timer timer;
+
+        //public void Start()
+        //{
+        //    // Schedule the API to run on the first day of every month at 12:00 AM.
+        //    DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month,12, 11, 40, 0);
+        //    TimeSpan timeUntilFirstDayOfMonth = firstDayOfMonth - DateTime.Now;
+        //    if (timeUntilFirstDayOfMonth < TimeSpan.Zero)
+        //    {
+        //        timeUntilFirstDayOfMonth = new TimeSpan(30, 0, 0, 0) + timeUntilFirstDayOfMonth;
+        //    }
+        //    this.timer = new Timer(this.EarnedMonthlyLeave1, null, timeUntilFirstDayOfMonth, new TimeSpan(30, 0, 0, 0));
+
+        //    // Schedule the API to run on the last day of every month at 11:59 PM.
+        //    DateTime lastDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month), 11, 41, 0);
+        //    TimeSpan timeUntilLastDayOfMonth = lastDayOfMonth - DateTime.Now;
+        //    if (timeUntilLastDayOfMonth < TimeSpan.Zero)
+        //    {
+        //        timeUntilLastDayOfMonth = new TimeSpan(30, 0, 0, 0) + timeUntilLastDayOfMonth;
+        //    }
+        //    this.timer = new Timer(this.EarnedMonthlyLeave1, null, timeUntilLastDayOfMonth, new TimeSpan(30, 0, 0, 0));
+        //}
     }
 }
