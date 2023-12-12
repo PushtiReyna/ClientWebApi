@@ -38,21 +38,21 @@ namespace ClientWebApi
 
                 options.AddJob<SchedulerBLL>(jobKey)
                 .AddTrigger(trigger => trigger.ForJob(jobKey)
-                  //.WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(2).RepeatForever())
+                  .WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(4).RepeatForever())
                   //.WithSchedule(CronScheduleBuilder.MonthlyOnDayAndHourAndMinute(0 0 3 L * ?)) //L-1
-                  //  .WithCronSchedule("0 44 17 11 * ?")
-                  .WithCronSchedule("0 56 17 11 * ?")
+                  //  .WithCronSchedule("0 0 0 1 * ?")
+                 // .WithCronSchedule("0 22 15 12 * ?")
                 );
 
-                options.AddJob<SchedulerBLL>(jobKey)
-             .AddTrigger(trigger => trigger.ForJob(jobKey)
-               .WithCronSchedule("0 57 17 11 * ?")
-             );
+                options.AddTrigger(trigger1 => trigger1.ForJob(jobKey)
+                .WithCronSchedule("0 40 12 12 * ?")
+                    //  .WithCronSchedule("0 0 20 L * ?")  0 15 10 L * ?
+                    );
 
             });
 
 
-            service.AddQuartzHostedService();
+            service.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
         }
     }
 }

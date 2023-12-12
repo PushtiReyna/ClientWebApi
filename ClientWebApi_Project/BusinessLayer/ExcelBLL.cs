@@ -84,7 +84,7 @@ namespace BusinessLayer
                                 leaveMst.TotalLeavesTaken = Convert.ToDecimal(worksheet.Cells[rowIterator, 54].Value);
                                 leaveMst.LeaveBalance = Convert.ToDecimal(worksheet.Cells[rowIterator, 55].Value);
                                 leaveMst.ClosingLeaveBalance = leaveMst.LeaveBalance;
-                                leaveMst.MonthLeave = Convert.ToDecimal(0);
+                                leaveMst.MonthLeave = Convert.ToDecimal(1.5);
                                 leaveMst.LossOfPayLeave = Convert.ToDecimal(0);
                                 leaveList.Add(leaveMst);
                             }
